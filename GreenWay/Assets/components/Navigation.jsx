@@ -13,7 +13,7 @@ function Navigation(){
                 <Container>
                 <Navbar.Brand href="/"><img src={Logo} className='logo'/></Navbar.Brand>
                 <Nav className="me-auto">
-                    <Nav.Link href="/">메인화면으로 돌아가기</Nav.Link>
+                    <Nav.Link href="/" className="Home">메인화면</Nav.Link>
                 </Nav>
                 </Container>
             </Navbar>
