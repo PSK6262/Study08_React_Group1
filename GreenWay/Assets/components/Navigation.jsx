@@ -2,6 +2,7 @@
 import {Route, Routes} from 'react-router'
 import { Button, Spinner, Container, Nav, Navbar, Row, Col, Card } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Logo from '../images/logo.png'
 import Main from './Main'
 function Navigation(){
     
@@ -10,11 +11,9 @@ function Navigation(){
         <>
             <Navbar bg="light" data-bs-theme="light">
                 <Container>
-                <Navbar.Brand href="#home">GreenWay</Navbar.Brand>
+                <Navbar.Brand href="/"><img src={Logo} className='logo'/></Navbar.Brand>
                 <Nav className="me-auto">
-                    <Nav.Link href="#home">메인화면</Nav.Link>
-                    <Nav.Link href="#features">산책로 소개</Nav.Link>
-                    <Nav.Link href="#pricing">공원 소개</Nav.Link>
+                    <Nav.Link href="/">메인화면으로 돌아가기</Nav.Link>
                 </Nav>
                 </Container>
             </Navbar>

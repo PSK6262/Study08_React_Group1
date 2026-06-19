@@ -6,4 +6,21 @@
     background-size: cover;
     background-position: center;
     background-color: black;
+    transition-property: all;
+    transition-duration: 1s;
+}
+.main-map{
+    opacity: 1;
+    width:100%;
+    height:60vh;
+    border: 1px solid black;
+}
+.display-none{
+    display: none;
+}
+.end{
+    opacity: 0;
+}
+.start{
+    opacity: 1;
 }
