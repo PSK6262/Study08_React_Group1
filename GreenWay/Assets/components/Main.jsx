@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { ListGroup , Form } from 'react-bootstrap';
 import "./Main.css";
-import '../page2/page2'
+import '../page2/Page2'
 
 function Main({Data}){
     
