@@ -39,7 +39,7 @@ function Main({Data}){
             place.lat,
             place.lng
         );
-        mapRef.current.panTo(location);
+        mapRef.current.panTo(location); // 천천히 이동
         mapRef.current.setZoom(15);
         // 기존 마커 지우기
         if (markerRef.current) {
