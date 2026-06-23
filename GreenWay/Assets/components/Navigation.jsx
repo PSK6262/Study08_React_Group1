@@ -34,6 +34,7 @@ function Navigation(){
             <Routes>
                 <Route path="/" element={<Main Data={parksData}/>}></Route>
                 <Route path="/trail" element={<Trail Data={parksData} />}></Route>
+                <Route path="/trail/:id" element={<Trail Data={parksData} isDetail={true}/>}></Route>
             </Routes>
         </>
     )
