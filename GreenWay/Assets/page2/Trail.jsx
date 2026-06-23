@@ -47,6 +47,12 @@ function Trail({ Data,index }) {
                                 <Card.Text>{trail.convenience}</Card.Text>
                             </div>
                         </Card.Body>
+                        <Card.Body>
+                        <div className="inner-box">
+                                <h5>산책 시간</h5>
+                                <Card.Text>{trail.time}분</Card.Text>
+                            </div>
+                        </Card.Body>
                     </Card>
                 </Row>
             </Container>
