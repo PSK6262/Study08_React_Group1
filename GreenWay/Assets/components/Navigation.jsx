@@ -8,6 +8,8 @@ import Main from './Main'
 // 2페이지 import
 import Trail from '../page2/Trail.jsx';
 
+
+import IMG from '../images/id1.png'
 function Navigation(){
     
     let navigate = useNavigate();

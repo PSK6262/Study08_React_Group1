@@ -7,7 +7,7 @@ const parksData = [
     description: "천안의 대표적인 역사 공원으로 천안흥타령 축제가 열리는 문화 공간입니다.",
     distance: 0,
     roadViewImage: "https://example.com",
-    image: "../images/id1.png",
+    image: "/images/id1.png",
     address: "충청남도 천안시 동남구 삼룡동 306-1",
     convenience: ["정문 우측 대형 화장실", "공원 중앙 잔디광장 옆 매점", "서문 주차장 근처 음음수대"],
     lat: 36.7891,
@@ -22,7 +22,7 @@ const parksData = [
     description: "소나무 숲길을 따라 걸으며 천안 시내를 한눈에 내려다볼 수 있는 힐링 코스, 새색시를 닮은 청송사, 야생화가 아름다운 성불사 국내 최대 좌불상을 품고 있는 각원사 등 명차 순럐를 겸하고 있으며 산이 완만하고 숲길이 좋아 트레킹화를 신어도 괜찮습니다.",
     distance: 6730,
     roadViewImage: "https://example.com",
-    image: "https://example.com",
+    image: "/images/id2.PNG",
     address: "충청남도 천안시 동남구 유량동 산1-1",
     convenience: ["태조산 청소년수련관 주차장 이용", "등산로 입구 공중화장실", "중간 쉼터 벤치 구역"],
     lat: 36.8194,
@@ -37,12 +37,13 @@ const parksData = [
     description: "신불당 지구 중심에 위치하여 주민들의 휴식과 가벼운 운동을 책임지는 도심 공원입니다.",
     distance: 0,
     roadViewImage: "https://example.com",
-    image: "https://example.com",
+    image: "../images/id3.PNG",
     address: "충청남도 천안시 서북구 불당동 1541",
     convenience: ["관리사무소 건물 내 화장실", "어린이 놀이터 옆 벤치", "지하 공영주차장 연계"],
     lat: 36.8122,
     lng: 127.1068,
-    tags: ["화장실", "놀이터", "음음수대", "야외운동기구"]
+    tags: ["화장실", "놀이터", "음음수대", "야외운동기구"],
+    time: 0
   },
   {
     id: 4,
@@ -51,7 +52,7 @@ const parksData = [
     description: "도심을 가로지르는 천안천을 따라 잘 정비된 평지형 보행자 전용 산책로입니다. 강력추천⭐⭐⭐",
     distance: 8800,
     roadViewImage: "https://example.com",
-    image: "https://example.com",
+    image: "../images/id4.jpg",
     address: "충청남도 천안시 서북구 쌍용동 494-20",
     convenience: ["다리 밑 그늘 쉼터 의자", "진입로 주변 공공자전거 대여소"],
     lat: 36.7985,
@@ -66,7 +67,7 @@ const parksData = [
     description: "생태 자원을 보존하며 수변 데크길이 아름답게 조성된 천안의 새로운 핫플레이스 공원, 성환천의 발원지이자 업성동과 성성동, 직산지역 농업용수를 공급하기 위해 1972년 축조된 업성저수지였으나 업성저수지의 수질이 6등급으로 악화되어 농업 저수지로서의 기능이 상실되고, 수질개선과 자연생태계 복원 사업으로 생태 습지의 인공 호수공원으로 탈바꿈하였습니다.",
     distance: 5000,
     roadViewImage: "https://example.com",
-    image: "https://example.com",
+    image: "../images/id5.PNG",
     address: "충청남도 천안시 서북구 성성동 120",
     convenience: ["방문자센터 내 화장실, 수유실", "북측 및 남측 대형 주차장", "수변 전망대 매점"],
     lat: 36.8453,
@@ -86,7 +87,8 @@ const parksData = [
     convenience: ["코스 중간 야간 조명등 설치", "포토존 주변 벤치 구역"],
     lat: 36.8471,
     lng: 127.1442,
-    tags: ["벤치", "야간조명", "포토존"]
+    tags: ["벤치", "야간조명", "포토존"],
+    time: 60
   },
   {
     id: 7,
@@ -100,7 +102,8 @@ const parksData = [
     convenience: ["축구장 옆 공중화장실", "매점 및 자판기 구역", "공원 전용 야외 주차장"],
     lat: 36.7812,
     lng: 127.1265,
-    tags: ["화장실", "주차장", "매점", "축구장", "농구장"]
+    tags: ["화장실", "주차장", "매점", "축구장", "농구장"],
+    time: 0
   },
   {
     id: 8,
@@ -129,7 +132,8 @@ const parksData = [
     convenience: ["지하 주차장 완비", "반려견 놀이터 내부 화장실", "클라이밍장 옆 음음수대"],
     lat: 36.8169,
     lng: 127.1725,
-    tags: ["화장실", "주차장", "반려견놀이터", "공연장"]
+    tags: ["화장실", "주차장", "반려견놀이터", "공연장"],
+    time: 0
   },
   {
     id: 10,
@@ -158,7 +162,8 @@ const parksData = [
     convenience: ["공원 중앙 시계탑 옆 화장실", "지압 보도 및 야외 운동 기구 구역"],
     lat: 36.7955,
     lng: 127.1188,
-    tags: ["화장실", "운동기구", "지압보도"]
+    tags: ["화장실", "운동기구", "지압보도"],
+    time: 0
   },
   {
     id: 12,
@@ -187,7 +192,8 @@ const parksData = [
     convenience: ["법원 방향 주차 공간", "분수대 앞 관람 벤치 구역", "공원 남측 화장실"],
     lat: 36.7865,
     lng: 127.1555,
-    tags: ["화장실", "주차장", "음악분수", "벤치"]
+    tags: ["화장실", "주차장", "음악분수", "벤치"],
+    time: 0
   },
   {
     id: 14,
@@ -216,7 +222,8 @@ const parksData = [
     convenience: ["체육관 건물 내 화장실 이용 가능", "공원 입구 주차장", "야외 무대 앞 잔디밭"],
     lat: 36.8778,
     lng: 127.1502,
-    tags: ["화장실", "주차장", "운동기구", "족구장"]
+    tags: ["화장실", "주차장", "운동기구", "족구장"],
+    time: 0
   },
   {
     id: 16,
@@ -245,7 +252,8 @@ const parksData = [
     convenience: ["공원 간이 화장실", "어린이 종합 놀이대", "나무 그늘 아래 벤치"],
     lat: 36.8282,
     lng: 127.1495,
-    tags: ["화장실", "놀이터", "벤치"]
+    tags: ["화장실", "놀이터", "벤치"],
+    time: 0
   },
   {
     id: 18,
@@ -274,7 +282,8 @@ const parksData = [
     convenience: ["물놀이 철 임시 탈의실 운영", "놀이터 옆 개방형 화장실"],
     lat: 36.8229,
     lng: 127.1298,
-    tags: ["화장실", "놀이터", "바닥분수"]
+    tags: ["화장실", "놀이터", "바닥분수"],
+    time: 0
   },
   {
     id: 20,
