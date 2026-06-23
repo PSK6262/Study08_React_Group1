@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router'
 import { ListGroup , Form } from 'react-bootstrap';
 import "./Main.css";
 import '../page2/Trail'
+import { AlignRight } from "lucide-react";
 
 function Main({Data}){
     const [showIntro, setShowIntro] = useState(true); // 제일 처음 화면 보이기, 이후 false
@@ -10,6 +11,7 @@ function Main({Data}){
     const [hidePark, setHidePark] = useState(false); // 공원 숨기기
     const [hideTrail, setHideTrail] = useState(false); // 산책로 숨기기
     const [selectedPlaceId, setSelectedPlaceId] = useState(null); // 현재 클릭중인 장소 표시
+    const [selectedPlace, setSelectedPlace] = useState(null);
     const mapRef = useRef(null);
     const markerRef = useRef(null);
     const infoWindowRef = useRef(null);
@@ -45,6 +47,7 @@ function Main({Data}){
             place.lng
         );
         setSelectedPlaceId(place.id); // 그룹멤버 클릭시 , 클릭 되었음을 보여줌
+        setSelectedPlace(place); // 멤버 클릭시 그 장소를 저장함
         mapRef.current.panTo(location); // 천천히 이동
         mapRef.current.setZoom(15);
         // 기존 마커 지우기
@@ -56,40 +59,40 @@ function Main({Data}){
             position: location,
             map: mapRef.current
         });
-        // 기존 InfoWindow 제거
-        if (infoWindowRef.current) {
-            infoWindowRef.current.close();
-        }
-        // 새 InfoWindow 생성
-        infoWindowRef.current = new window.naver.maps.InfoWindow({
-            content: `
-                <div style="
-                    padding:10px;
-                    text-align:center;
-                    min-width:100px;
-                    min-height:100px;
-                ">
-                    <p><strong>${place.name}(${place.type})</strong></p>
-                    ${ place.distance != 0 ? `<p>총 길이 ${Number(place.distance)/1000}KM</p>` : `` }
-                    ${ place.time != 0 ? `<p>약 ${(place.time)}분</p>` : ``}
-                    <p><img src="${place.image}" style="width:80px; height:80px; objectFit:cover;"/></p>
-                    <p style="margin:0;"><strong>...</strong></p>
-                    <button id="detail-btn" style="
-                        background: #03C75A;
-                        color: white;
-                        border: none;
-                        border-radius: 6px;
-                        padding: 6px 12px;"
-                    >
-                        상세보기
-                    </button>
-                </div>
-            `
-        });
-        infoWindowRef.current.open(
-            mapRef.current,
-            markerRef.current
-        );
+        // // 기존 InfoWindow 제거
+        // if (infoWindowRef.current) {
+        //     infoWindowRef.current.close();
+        // }
+        // // 새 InfoWindow 생성
+        // infoWindowRef.current = new window.naver.maps.InfoWindow({
+        //     content: `
+        //         <div style="
+        //             padding:10px;
+        //             text-align:center;
+        //             min-width:100px;
+        //             min-height:100px;
+        //         ">
+        //             <p><strong>${place.name}(${place.type})</strong></p>
+        //             ${ place.distance != 0 ? `<p>총 길이 ${Number(place.distance)/1000}KM</p>` : `` }
+        //             ${ place.time != 0 ? `<p>약 ${(place.time)}분</p>` : ``}
+        //             <p><img src="${place.image}" style="width:80px; height:80px; objectFit:cover;"/></p>
+        //             <p style="margin:0;"><strong>...</strong></p>
+        //             <button id="detail-btn" style="
+        //                 background: #03C75A;
+        //                 color: white;
+        //                 border: none;
+        //                 border-radius: 6px;
+        //                 padding: 6px 12px;"
+        //             >
+        //                 상세보기
+        //             </button>
+        //         </div>
+        //     `
+        // });
+        // infoWindowRef.current.open(
+        //     mapRef.current,
+        //     markerRef.current
+        // );
         setTimeout(() => {
             const btn = document.getElementById("detail-btn");
             if (!btn) return;
@@ -138,9 +141,7 @@ function Main({Data}){
                             value={searchText}
                             onChange={(e)=>setSearchText(e.target.value)}
                         />
-                        <div>
-                            <p className="searchData">검색 결과 {filteredData.length}개</p>
-                        </div>
+                        <p className="searchData">검색 결과 {filteredData.length}개</p>
                     </div>
                     {/* 검색하면 아래 리스트에서 해당하는것만 나오게. */}
                     <ListGroup className="nameList">
@@ -185,6 +186,53 @@ function Main({Data}){
                         />
                     </div>
                 </div>
+                {
+                    selectedPlace && 
+                    <div key={selectedPlace.id} 
+                        className={`showSelectedPlace`} 
+                        style={{ textAlign: "center" }}>
+                        <p><span className="titlePlace">{selectedPlace.name}</span> <span><button className="btn_close" style={{
+                            border:'none',
+                            background:'none',
+                            position: "absolute",
+                            right: "1vh",
+                            top: "1.3vh",
+                            transform: "translateY(-50%)"             
+                        }} onClick={()=>{
+                            setSelectedPlace(null);   
+                            setSelectedPlaceId(null);             
+                        }}>X</button></span></p>
+                        <p>
+                            <img
+                                src={selectedPlace.image}
+                                style={{
+                                    width: "350px",
+                                    height: "250px",
+                                    objectFit: "cover"
+                                }}
+                                alt={selectedPlace.name}
+                            />
+                        </p>
+                        <div className="infoArea">
+                        {
+                            selectedPlace.distance !== 0 &&
+                            <span>총 길이 {Number(selectedPlace.distance) / 1000} KM ,</span>
+                        }
+                        {
+                            selectedPlace.time !== 0 &&
+                            <span> 약 {selectedPlace.time}분 소요</span>
+                        }
+                        </div>
+                        <button 
+                            id="detail-btn" style={{
+                            background: "#03C75A",
+                            color: "white",
+                            border: "none",
+                            borderRadius: "6px",
+                            padding: "6px 12px"
+                        }}>상세 보기</button>
+                    </div>
+                }
             </div>
             <div className="global-footer">
                 <p>© 2026 OneCode All rights reserved. | naverAPI 활용 팀 과제</p>
