@@ -2,7 +2,7 @@ import { useEffect , useState , useRef } from "react";
 import { useNavigate } from 'react-router'
 import { ListGroup , Form } from 'react-bootstrap';
 import "./Main.css";
-import '../page2/Page2'
+import '../page2/Trail'
 
 function Main({Data}){
     const [showIntro, setShowIntro] = useState(true); // 제일 처음 화면 보이기, 이후 false

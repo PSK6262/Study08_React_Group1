@@ -5,7 +5,8 @@ import parksData from '../data/parksData.js'
 import Logo from '../images/logo.png'
 // 1페이지 Main Import
 import Main from './Main'
-import Page2 from '../page2/Page2.jsx';
+// 2페이지 import
+import Trail from '../page2/Trail.jsx';
 
 function Navigation(){
     
@@ -32,7 +33,7 @@ function Navigation(){
 
             <Routes>
                 <Route path="/" element={<Main Data={parksData}/>}></Route>
-                <Route path="/introWalk" element={<Page2 />}></Route>
+                <Route path="/trail" element={<Trail Data={parksData} />}></Route>
             </Routes>
         </>
     )

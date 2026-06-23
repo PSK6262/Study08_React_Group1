@@ -196,7 +196,7 @@ const parksData = [
     description: "버스커버스커 노래로 유명한 '단대호수'를 감싸고 도는 야경이 무척 아름다운 산책로, 단국대학교 천안 캠퍼스와 가까워 단국대와 붙어있는 호수라는 인지도를 갖고 있으며, 인근 주민들이 흔히 단대호수 또는 안서호라고 부릅니다.",
     distance: 2530,
     roadViewImage: "https://example.com",
-    image: "https://example.com",
+    image: "../images/14-image.png",
     address: "충청남도 천안시 동남구 안서동 526-1",
     convenience: ["천호지 공영주차장 및 공중화장실", "산책로 주변 편의점 및 대형 카페 거리"],
     lat: 36.8288,
