@@ -12,14 +12,14 @@ function Navigation(){
     
     return(
         <>
-            <Navbar bg="light" data-bs-theme="light">
+            <Navbar data-bs-theme="light" style={{backgroundColor: "#FFFFFF"}}>
                 <Container>
                     <Navbar.Brand style={{ cursor: 'pointer' }} onClick={() => { navigate("/") }}>
                         <img src={Logo} className='logo' alt="로고"/>
                     </Navbar.Brand>
                     <Nav className="me-auto">
                         <Nav.Link onClick={() => { navigate("/") }} className="Home" style={{ cursor: 'pointer' }}>
-                            메인화면
+                            공원 · 산책로 안내
                         </Nav.Link>
                     </Nav>
                 </Container>

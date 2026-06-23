@@ -9,6 +9,7 @@ function Main({Data}){
     const [searchText, setSearchText] = useState(""); // 검색용
     const [hidePark, setHidePark] = useState(false); // 공원 숨기기
     const [hideTrail, setHideTrail] = useState(false); // 산책로 숨기기
+    const [selectedPlaceId, setSelectedPlaceId] = useState(null); // 현재 클릭중인 장소 표시
     const mapRef = useRef(null);
     const markerRef = useRef(null);
     const infoWindowRef = useRef(null);
@@ -43,7 +44,7 @@ function Main({Data}){
             place.lat,
             place.lng
         );
-
+        setSelectedPlaceId(place.id); // 그룹멤버 클릭시 , 클릭 되었음을 보여줌
         mapRef.current.panTo(location); // 천천히 이동
         mapRef.current.setZoom(15);
         // 기존 마커 지우기
@@ -65,15 +66,21 @@ function Main({Data}){
                 <div style="
                     padding:10px;
                     text-align:center;
-                    min-width:200px;
-                    min-height:200px;
+                    min-width:100px;
+                    min-height:100px;
                 ">
                     <p><strong>${place.name}(${place.type})</strong></p>
                     ${ place.distance != 0 ? `<p>총 길이 ${Number(place.distance)/1000}KM</p>` : `` }
                     ${ place.time != 0 ? `<p>약 ${(place.time)}분</p>` : ``}
-                    <p><img src="${place.image}" style="width:120px; height:120px; objectFit:cover;"/></p>
+                    <p><img src="${place.image}" style="width:80px; height:80px; objectFit:cover;"/></p>
                     <p style="margin:0;"><strong>...</strong></p>
-                    <button id="detail-btn">
+                    <button id="detail-btn" style="
+                        background: #03C75A;
+                        color: white;
+                        border: none;
+                        border-radius: 6px;
+                        padding: 6px 12px;"
+                    >
                         상세보기
                     </button>
                 </div>
@@ -131,6 +138,9 @@ function Main({Data}){
                             value={searchText}
                             onChange={(e)=>setSearchText(e.target.value)}
                         />
+                        <div>
+                            <p className="searchData">검색 결과 {filteredData.length}개</p>
+                        </div>
                     </div>
                     {/* 검색하면 아래 리스트에서 해당하는것만 나오게. */}
                     <ListGroup className="nameList">
@@ -143,12 +153,13 @@ function Main({Data}){
                             </ListGroup.Item>
                         )
                         : (
-                            filteredData.map((item) => (
+                            filteredData.map((item) => ( // return
                                 <ListGroup.Item
                                     key={item.id}
                                     variant="light"
                                     onClick={() => moveMap(item)}
                                     style={{ cursor: "pointer" }}
+                                    className={item.id === selectedPlaceId ? "selectedPlace":""}
                                 >
                                     {item.name}
                                 </ListGroup.Item>
