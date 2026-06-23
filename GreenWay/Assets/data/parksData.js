@@ -63,7 +63,7 @@ const parksData = [
   {
     id: 5,
     type: "공원",
-    name: "성성호수공원 (업성저수지)",
+    name: "성성호수공원",
     description: "생태 자원을 보존하며 수변 데크길이 아름답게 조성된 천안의 새로운 핫플레이스 공원입니다.",
     distance: 5000,
     roadViewImage: "https://example.com",
