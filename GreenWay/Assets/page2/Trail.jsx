@@ -1,4 +1,4 @@
-import { useParams } from 'react-router'
+import { href, useParams } from 'react-router'
 import { Container, Row, Col } from 'react-bootstrap';
 import { MapPin, Sparkles, Ruler, ParkingCircle, Clock } from "lucide-react";
 import './Trail.css';
@@ -102,7 +102,7 @@ function Trail() {
                                 <Ruler size={18} color='#4A5D4E' />
                                 <span><strong>산책로 길이:</strong> {data.distance}m</span>
                             </div>
-                            
+
                             <div style={{ display: 'flex', alignItems: 'flex-start', gap: '4px', flexDirection: 'column' }}>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                                     <ParkingCircle size={18} color='blue' />
@@ -112,12 +112,21 @@ function Trail() {
                                     {renderConvenience(data.convenience)}
                                 </div>
                             </div>
-                            
+
                             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                                 <Clock size={18} color='green' />
                                 <span><strong>산책 시간:</strong> {data.time}분</span>
                             </div>
                         </div>
+
+                        <button className="nav-button" onClick={() => {
+                            if (data && data.nav) {
+                                window.open(data.nav, '_blank');
+                            } else {
+                                alert("등록된 사이트 링크가 없습니다!");
+                            }
+                        }}
+                        >내비게이션 보기</button>
                     </div>
                 </div>
             </div>

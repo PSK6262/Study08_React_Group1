@@ -13,7 +13,8 @@ const parksData = [
     lat: 36.7891,
     lng: 127.1664,
     tags: ["화장실", "매점", "주차장", "잔디광장"],
-    time: 0
+    time: 0,
+    nav : "https://map.naver.com/p/directions/-/3zpEf5,2AfbxN,%EC%B2%9C%EC%95%88%EC%82%BC%EA%B1%B0%EB%A6%AC%EA%B3%B5%EC%9B%90,13192190,PLACE_POI/-/transit?c=13.00,0,0,0,dh"
   },
   {
     id: 2,
@@ -28,7 +29,8 @@ const parksData = [
     lat: 36.8194,
     lng: 127.1952,
     tags: ["화장실", "주차장", "벤치", "흙먼지털이기"],
-    time: 50
+    time: 50,
+    nav : "https://map.naver.com/p/directions/-/3zr94m,2AgGfO,%ED%83%9C%EC%A1%B0%EC%82%B0,13491062,PLACE_POI/-/transit?c=13.00,0,0,0,dh"
   },
   {
     id: 3,
@@ -43,7 +45,8 @@ const parksData = [
     lat: 36.8122,
     lng: 127.1068,
     tags: ["화장실", "놀이터", "음음수대", "야외운동기구"],
-    time: 0
+    time: 0,
+    nav : "https://map.naver.com/p/directions/-/3zmVHz,2AgwFa,%EC%95%84%EB%A6%84%EB%93%9C%EB%A6%AC%EA%B3%B5%EC%9B%90,38003904,PLACE_POI/-/transit?c=14.00,0,0,0,dh"
   },
   {
     id: 4,
@@ -58,7 +61,8 @@ const parksData = [
     lat: 36.7985,
     lng: 127.1241,
     tags: ["벤치", "자전거도로", "반려동물동반"],
-    time: 75
+    time: 75,
+    nav : 'https://map.naver.com/p/directions/-/3zoAN4,2Ag0yg,%EB%B4%89%EB%AA%85%EA%B5%90,17637650,PLACE_POI/-/transit?c=16.56,0,0,0,dh'
   },
   {
     id: 5,
@@ -73,7 +77,8 @@ const parksData = [
     lat: 36.8453,
     lng: 127.1405,
     tags: ["화장실", "주차장", "카페", "전망대", "수유실"],
-    time: 0
+    time: 0,
+    nav : "https://map.naver.com/p/directions/-/3zojRz,2AhVUk,%EC%84%B1%EC%84%B1%ED%98%B8%EC%88%98%EA%B3%B5%EC%9B%90,17671487,PLACE_POI/-/transit?c=14.45,0,0,0,dh"
   },
   {
     id: 6,
@@ -88,7 +93,8 @@ const parksData = [
     lat: 36.8471,
     lng: 127.1442,
     tags: ["벤치", "야간조명", "포토존"],
-    time: 60
+    time: 60,
+    nav : "https://map.naver.com/p/directions/-/3znYwP,2AhSOu,%EC%B2%9C%EC%95%88%EC%8B%9C%20%EC%84%B1%EC%84%B1%ED%98%B8%EC%88%98%EA%B3%B5%EC%9B%90%20%EB%B0%A9%EB%AC%B8%EC%9E%90%EC%84%BC%ED%84%B0,1508012337,PLACE_POI/-/transit?c=14.00,0,0,0,dh"
   },
   {
     id: 7,
@@ -103,7 +109,8 @@ const parksData = [
     lat: 36.7812,
     lng: 127.1265,
     tags: ["화장실", "주차장", "매점", "축구장", "농구장"],
-    time: 0
+    time: 0,
+    nav : "https://map.naver.com/p/directions/-/3znEvx,2AfeI5,%EC%8B%A0%EB%B0%A9%EC%89%BC%ED%84%B0,1932805102,PLACE_POI/-/transit?c=14.00,0,0,0,dh"
   },
   {
     id: 8,
@@ -118,7 +125,8 @@ const parksData = [
     lat: 36.8041,
     lng: 127.1612,
     tags: ["화장실", "벤치", "벚꽃명소"],
-    time: 40
+    time: 40,
+    nav : "https://map.naver.com/p/directions/-/3zp6k4,2Ag2dw,%EC%9B%90%EC%84%B1%EC%A0%9C2%EA%B5%90,17629540,PLACE_POI/-/transit?c=14.00,0,0,0,dh"
   },
   {
     id: 9,
@@ -133,7 +141,8 @@ const parksData = [
     lat: 36.8169,
     lng: 127.1725,
     tags: ["화장실", "주차장", "반려견놀이터", "공연장"],
-    time: 0
+    time: 0,
+    nav : "https://map.naver.com/p/directions/-/3zpnh6,2AgTT9,%EB%8F%84%EC%86%94%EA%B4%91%EC%9E%A5,1618335824,PLACE_POI/-/transit?c=17.00,0,0,0,dh"
   },
   {
     id: 10,
@@ -148,7 +157,8 @@ const parksData = [
     lat: 36.8322,
     lng: 127.1991,
     tags: ["화장실", "주차장", "매점", "사찰"],
-    time: 20
+    time: 20,
+    nav : "https://map.naver.com/p/directions/-/3zqQVI,2AhjMU,%EA%B0%81%EC%9B%90%EC%82%AC,11664082,PLACE_POI/-/transit?c=17.00,0,0,0,dh"
   },
   {
     id: 11,
@@ -163,7 +173,8 @@ const parksData = [
     lat: 36.7955,
     lng: 127.1188,
     tags: ["화장실", "운동기구", "지압보도"],
-    time: 0
+    time: 0,
+    nav : "https://map.naver.com/p/directions/-/3zo1WV,2Agl71,%EC%8C%8D%EC%9A%A9%EA%B3%B5%EC%9B%90,1027058526,PLACE_POI/-/transit?c=17.00,0,0,0,dh"
   },
   {
     id: 12,
@@ -178,7 +189,8 @@ const parksData = [
     lat: 36.8151,
     lng: 127.1215,
     tags: ["벤치", "흙먼지털이기", "운동기구"],
-    time: 65
+    time: 65,
+    nav : "https://map.naver.com/p/directions/-/3znPYf,2AhfUw,%EC%B2%9C%EC%95%88%EB%B0%B1%EC%84%9D%EC%95%84%EC%9D%B4%ED%8C%8C%ED%81%AC%EC%95%84%ED%8C%8C%ED%8A%B8,17666067,PLACE_POI/-/transit?c=17.00,0,0,0,dh"
   },
   {
     id: 13,
@@ -193,7 +205,8 @@ const parksData = [
     lat: 36.7865,
     lng: 127.1555,
     tags: ["화장실", "주차장", "음악분수", "벤치"],
-    time: 0
+    time: 0,
+    nav : "https://map.naver.com/p/directions/-/3zoQBT,2Afm57,%EC%B2%AD%EC%88%98%ED%98%B8%EC%88%98%EA%B3%B5%EC%9B%90,1339828853,PLACE_POI/-/transit?c=17.00,0,0,0,dh"
   },
   {
     id: 14,
@@ -208,7 +221,8 @@ const parksData = [
     lat: 36.8288,
     lng: 127.1772,
     tags: ["화장실", "주차장", "편의점", "카페", "야간조명"],
-    time: 30
+    time: 30,
+    nav:'https://map.naver.com/p/directions/-/3zpGpD,2AhgpD,%EC%B2%9C%ED%98%B8%EC%A7%80,1133933276,PLACE_POI/-/transit?c=13.00,0,0,0,dh'
   },
   {
     id: 15,
@@ -223,7 +237,8 @@ const parksData = [
     lat: 36.8778,
     lng: 127.1502,
     tags: ["화장실", "주차장", "운동기구", "족구장"],
-    time: 20
+    time: 20,
+    nav : "https://map.naver.com/p/directions/-/3zoCra,2AiRoz,%EC%A7%81%EC%82%B0%EC%97%AD%201%ED%98%B8%EC%84%A0,1406,SUBWAY_STATION/-/transit?c=17.00,0,0,0,dh"
   },
   {
     id: 16,
@@ -238,7 +253,8 @@ const parksData = [
     lat: 36.7861,
     lng: 127.1321,
     tags: ["벤치", "정자"],
-    time: 30
+    time: 30,
+    nav : "https://map.naver.com/p/directions/-/3zovtx,2AgfyT,%EC%84%9C%EB%B6%80%EC%97%AD1%EA%B8%B8,19467638,PLACE_POI/-/transit?c=17.00,0,0,0,dh"
   },
   {
     id: 17,
@@ -253,7 +269,8 @@ const parksData = [
     lat: 36.8282,
     lng: 127.1495,
     tags: ["화장실", "놀이터", "벤치"],
-    time: 0
+    time: 0,
+    nav : "https://map.naver.com/p/directions/-/3znxcy,2AfBgO,%EB%B0%A9%EC%95%84%EB%8B%A4%EB%A6%AC%EA%B3%B5%EC%9B%90,17674976,PLACE_POI/-/transit?c=17.00,0,0,0,dh"
   },
   {
     id: 18,
@@ -268,7 +285,8 @@ const parksData = [
     lat: 36.7844,
     lng: 127.2231,
     tags: ["화장실", "주차장", "매점", "수유실", "단풍명소"],
-    time: 45
+    time: 45,
+    nav : "https://map.naver.com/p/directions/-/3zrYuJ,2Afakx,%EB%8F%85%EB%A6%BD%EA%B8%B0%EB%85%90%EA%B4%80,11620331,PLACE_POI/-/transit?c=17.00,0,0,0,dh"
   },
   {
     id: 19,
@@ -283,7 +301,8 @@ const parksData = [
     lat: 36.8229,
     lng: 127.1298,
     tags: ["화장실", "놀이터", "바닥분수"],
-    time: 0
+    time: 0,
+    nav : "https://map.naver.com/p/directions/-/3znLYP,2AgO3o,%EB%B0%B1%EC%84%9D%EC%A2%85%ED%95%A9%EC%83%81%EA%B0%80,17666931,PLACE_POI/-/transit?c=17.00,0,0,0,dh"
   }
 ];
 
