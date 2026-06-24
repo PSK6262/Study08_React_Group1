@@ -1,12 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=East+Sea+Dokdo&family=Jua&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&family=Nanum+Myeongjo&display=swap');
 
 .t-detail-header h2 {
     text-align: left;
     width: auto !important;
     font-weight: 800;
-    font-size: 2.4rem;
+    font-size: 3.5rem;
     color: #111;
     margin: 0;
+    font-family : 'East Sea Dokdo', sans-serif !important;
+    letter-spacing: -0.03em !important;
 }
 
 .t-container {
@@ -37,7 +39,7 @@
 
 .t-address {
     color: #555;
-    font-size: 15px;
+    font-size: 20px;
     font-weight: 500;
     margin: 10px 0 24px;
 }
@@ -93,6 +95,7 @@
     cursor: pointer;
     font-size: 15px;
     transition: background 0.2s;
+    letter-spacing: -0.03em !important;
 }
 
 .convenience:hover {

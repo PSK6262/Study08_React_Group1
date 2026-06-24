@@ -106,7 +106,7 @@ function Trail() {
                             <div style={{ display: 'flex', alignItems: 'flex-start', gap: '4px', flexDirection: 'column' }}>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                                     <ParkingCircle size={18} color='blue' />
-                                    <strong>편의 시설:</strong>
+                                    <strong>편의 시설</strong>
                                 </div>
                                 <div style={{ paddingLeft: '26px', width: '100%' }}>
                                     {renderConvenience(data.convenience)}
