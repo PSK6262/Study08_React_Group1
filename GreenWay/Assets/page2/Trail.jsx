@@ -1,113 +1,126 @@
 import { useParams } from 'react-router'
 import { Container, Row, Col } from 'react-bootstrap';
-import { MapPin, Sparkles, Ruler, ParkingCircle, Clock, Map } from "lucide-react";
+import { MapPin, Sparkles, Ruler, ParkingCircle, Clock } from "lucide-react";
 import './Trail.css';
 import parksData from '../data/parksData.js';
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 
-function Trail({ Data, index }) {
-    let { id } = useParams();
-    let trail = Data.find((item) => item.id == id);
+function Trail() {
+    const { id } = useParams();
+    const [ data, setData ] = useState(null);
+    const [ vusdml, setVusdml ] = useState(false);
 
-    const renderConvenience = (convenienceList) => {
-    return (
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginTop: '6px' }}>
-            {convenienceList.map((facility, fIdx) => {
-                const trimmed = facility.trim();
-                if (!trimmed) return null;
-                return (
-                    <span 
-                        key={fIdx} 
-                        style={{
-                            background: 'rgba(0, 136, 255, 0.08)',
-                            color: '#0066cc',
-                            padding: '4px 10px',
-                            borderRadius: '20px',
-                            fontSize: '12.5px',
-                            fontWeight: '600',
-                            border: '1px solid rgba(0, 136, 255, 0.15)',
-                            display: 'inline-block'
-                        }}
-                    >
-                        {trimmed}
-                    </span>
-                );
-            })}
-        </div>
-    );
-};
+    useEffect(() => {
+        const trail = parksData.find((item) => item.id == id);
+
+        if (trail && trail.type == "산책로") {
+            setData(trail);
+        } else {
+            setData(null);
+        }
+    }, [ id ]);
+
+    const renderConvenience = (convenienceData) => {
+        if (!convenienceData) return "없음";
+
+        let finalArray = [];
+        if (Array.isArray(convenienceData)) {
+            finalArray = convenienceData;
+        } else if (typeof convenienceData === 'string') {
+            finalArray = convenienceData.split(/[,\/]/);
+        }
+
+        return (
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginTop: '4px' }}>
+                {finalArray.map((facility, fIdx) => {
+                    const trimmed = facility.trim();
+                    if (!trimmed) return null;
+                    return (
+                        <span
+                            key={fIdx}
+                            style={{
+                                background: 'rgba(0, 136, 255, 0.08)',
+                                color: '#0066cc',
+                                padding: '4px 10px',
+                                borderRadius: '20px',
+                                fontSize: '12.5px',
+                                fontWeight: '600',
+                                border: '1px solid rgba(0, 136, 255, 0.15)',
+                                display: 'inline-block'
+                            }}
+                        >
+                            {trimmed}
+                        </span>
+                    );
+                })}
+            </div>
+        );
+    };
+
+    if (!data) {
+        return (
+            <div style={{ padding: '40px', textAlign: 'center' }}>
+                <h3 style={{ fontSize: "24px" }}> 산책로를 찾을 수 없습니다 !</h3>
+            </div>
+        );
+    }
+
     return (
         <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 2.0, ease: "easeOut" }}
-            style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.5 }}
+            style={{ width: '100%', minHeight: '100vh', backgroundColor: '#f4f6f8', padding: '40px 0' }}
         >
-
-            <Container className="trail-page-container" style={{ padding: '0 20px' }}>
-                
-                <div className="trail-title-box">
-                    <h1 className="m-0 fw-bold" style={{ color: '#1a3a2a', textAlign: 'left', paddingLeft: '20px', fontSize:'5rem' }}>
-                        {trail.name}
-                    </h1>
+            <div className="t-container">
+                <div className="t-detail-header">
+                    <div className="t-name">
+                        <h2>{data.name}</h2>
+                        <span className="tag">{data.type}</span>
+                    </div>
+                    <div className="t-address" style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '8px' }}>
+                        <MapPin size={20} color='orange' />
+                        <span>{data.address}</span>
+                    </div>
                 </div>
 
-                <Row className="align-items-start mx-0" style={{ marginBottom: '40px' }}>
-                    <Col md={5} className="mb-4 mb-md-0 text-center">
-                        <img 
-                            src={trail.image} 
-                            alt={trail.name} 
-                            style={{ 
-                                width: '100%', 
-                                maxWidth: '500px',
-                                height: '475px', 
-                                marginLeft: '50px',
-                                aspectRatio: '1/1',
-                                objectFit: 'cover', 
-                                borderRadius: '32px', 
-                                boxShadow: '0 12px 36px rgba(0,0,0,0.1)'
-                            }} 
-                        />
-                    </Col>
+                <div className="t-main">
+                    <div className="img">
+                        <img src={data.image} alt={data.name} />
+                    </div>
 
-                    <Col md={8} lg={6} className="ms-auto">
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                            
-                            {[
-                                { icon: <MapPin size={20} color='orange' />, title: '주소', text: trail.address },
-                                { icon: <Sparkles size={20} color='yellowgreen' />, title: '특징', text: trail.description },
-                                { icon: <Ruler size={20} color='#4A5D4E' />, title: '산책로 길이', text: `${trail.distance}m` },
-                                { icon: <ParkingCircle size={20} color='blue' />, title: '편의 시설', text: renderConvenience(trail.convenience) },
-                                { icon: <Clock size={20} color='green' />, title: '산책 시간', text: `${trail.time}분` }
-                            ].map((item, idx) => (
-                                <div key={idx} className="glass-info-item">
-                                    <div style={{
-                                        background: 'rgba(255, 255, 255, 0.9)',
-                                        width: '44px',
-                                        height: '44px',
-                                        borderRadius: '12px',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
-                                        flexShrink: 0
-                                    }}>
-                                        {item.icon}
-                                    </div>
-                                    <div style={{ flex: 1, textAlign: 'left' }}>
-                                        <h6 style={{ margin: '0 0 2px 0', fontWeight: '700', color: '#1a3a2a' }}>{item.title}</h6>
-                                        <p style={{ margin: 0, color: '#333', fontSize: '14px', lineHeight: '1.5', fontWeight: '500' }}>{item.text}</p>
-                                    </div>
-                                </div>
-                            ))}
-
+                    <div className="box">
+                        <div className="description">
+                            <h5> 소개 </h5>
+                            <p>{data.description}</p>
                         </div>
-                    </Col>
-                </Row>
-            </Container>
 
-            <div className="trail-bottom-footer-bg"></div>
+                        <div className="dnlcl" style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                <Ruler size={18} color='#4A5D4E' />
+                                <span><strong>산책로 길이:</strong> {data.distance}m</span>
+                            </div>
+                            
+                            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '4px', flexDirection: 'column' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                    <ParkingCircle size={18} color='blue' />
+                                    <strong>편의 시설:</strong>
+                                </div>
+                                <div style={{ paddingLeft: '26px', width: '100%' }}>
+                                    {renderConvenience(data.convenience)}
+                                </div>
+                            </div>
+                            
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                <Clock size={18} color='green' />
+                                <span><strong>산책 시간:</strong> {data.time}분</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </motion.div>
     );
 }
