@@ -1,26 +1,39 @@
+import { Route, Routes, Link } from "react-router";
+import {
+  Button,
+  Spinner,
+  Container,
+  Nav,
+  Navbar,
+  Row,
+  Col,
+  Card,
+} from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import parksData from "../data/parksData.js";
+import Logo from "../images/logo.png";
+import Main from "./Main";
+import Park3 from "./Park3.jsx";
 
-import {Route, Routes , Link} from 'react-router'
-import { Button, Spinner, Container, Nav, Navbar, Row, Col, Card } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import parksData from '../data/parksData.js'
-import Logo from '../images/logo.png'
-import Main from './Main'
-function Navigation(){
-    
-    return(
-        <>
-            <Navbar bg="light" data-bs-theme="light">
-                <Container>
-                <Navbar.Brand href="/"><img src={Logo} className='logo'/></Navbar.Brand>
-                <Nav className="me-auto">
-                    <Nav.Link href="/" className="Home">메인화면</Nav.Link>
-                </Nav>
-                </Container>
-            </Navbar>
-            <Routes>
-                <Route path="/" element={<Main Data={parksData}/>}></Route>
-            </Routes>
-        </>
-    )
+function Navigation() {
+  return (
+    <>
+      <Navbar bg="light" data-bs-theme="light">
+        <Container>
+          <Navbar.Brand href="/">
+            <img src={Logo} className="logo" />
+          </Navbar.Brand>
+          <Nav className="me-auto">
+            <Nav.Link href="/" className="Home">
+              메인화면
+            </Nav.Link>
+          </Nav>
+        </Container>
+      </Navbar>
+      <Routes>
+        <Route path="/" element={<Main Data={parksData} />}></Route>
+      </Routes>
+    </>
+  );
 }
-export default Navigation
+export default Navigation;

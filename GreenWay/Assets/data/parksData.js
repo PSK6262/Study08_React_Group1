@@ -4,49 +4,66 @@ const parksData = [
     id: 1,
     type: "공원",
     name: "천안삼거리공원",
-    description: "천안의 대표적인 역사 공원으로 흥타령 축제가 열리는 문화 공간입니다.",
+    description:
+      "천안의 대표적인 역사 공원으로 흥타령 축제가 열리는 문화 공간입니다.",
     distance: 0,
     roadViewImage: "https://example.com",
-    image: "https://example.com",
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRlap0rheWGo7CPG3f8uoajkI_mqj4SACWuaUpd9-oyA&s=10",
     address: "충청남도 천안시 동남구 삼룡동 306-1",
-    convenience: ["정문 우측 대형 화장실", "공원 중앙 잔디광장 옆 매점", "서문 주차장 근처 음음수대"],
+    convenience: [
+      "정문 우측 대형 화장실",
+      "공원 중앙 잔디광장 옆 매점",
+      "서문 주차장 근처 음수대",
+    ],
     lat: 36.7891,
     lng: 127.1664,
-    tags: ["화장실", "매점", "주차장", "잔디광장"]
+    tags: ["화장실", "매점", "주차장", "잔디광장"],
   },
   {
     id: 2,
     type: "산책로",
     name: "태조산 솔바람길",
-    description: "소나무 숲길을 따라 걸으며 천안 시내를 한눈에 내려다볼 수 있는 힐링 코스입니다.",
+    description:
+      "소나무 숲길을 따라 걸으며 천안 시내를 한눈에 내려다볼 수 있는 힐링 코스입니다.",
     distance: 3500,
     roadViewImage: "https://example.com",
     image: "https://example.com",
     address: "충청남도 천안시 동남구 유량동 산1-1",
-    convenience: ["태조산 청소년수련관 주차장 이용", "등산로 입구 공중화장실", "중간 쉼터 벤치 구역"],
+    convenience: [
+      "태조산 청소년수련관 주차장 이용",
+      "등산로 입구 공중화장실",
+      "중간 쉼터 벤치 구역",
+    ],
     lat: 36.8194,
     lng: 127.1952,
-    tags: ["화장실", "주차장", "벤치", "흙먼지털이기"]
+    tags: ["화장실", "주차장", "벤치", "흙먼지털이기"],
   },
   {
     id: 3,
     type: "공원",
     name: "불당아름다운공원",
-    description: "신불당 지구 중심에 위치하여 주민들의 휴식과 가벼운 운동을 책임지는 도심 공원입니다.",
+    description:
+      "신불당 지구 중심에 위치하여 주민들의 휴식과 가벼운 운동을 책임지는 도심 공원입니다.",
     distance: 0,
     roadViewImage: "https://example.com",
     image: "https://example.com",
     address: "충청남도 천안시 서북구 불당동 1541",
-    convenience: ["관리사무소 건물 내 화장실", "어린이 놀이터 옆 벤치", "지하 공영주차장 연계"],
+    convenience: [
+      "관리사무소 건물 내 화장실",
+      "어린이 놀이터 옆 벤치",
+      "지하 공영주차장 연계",
+    ],
     lat: 36.8122,
     lng: 127.1068,
-    tags: ["화장실", "놀이터", "음음수대", "야외운동기구"]
+    tags: ["화장실", "놀이터", "음음수대", "야외운동기구"],
   },
   {
     id: 4,
     type: "산책로",
     name: "천안천 수변산책로",
-    description: "도심을 가로지르는 천안천을 따라 잘 정비된 평지형 보행자 전용 산책로입니다.",
+    description:
+      "도심을 가로지르는 천안천을 따라 잘 정비된 평지형 보행자 전용 산책로입니다.",
     distance: 5200,
     roadViewImage: "https://example.com",
     image: "https://example.com",
@@ -54,27 +71,33 @@ const parksData = [
     convenience: ["다리 밑 그늘 쉼터 의자", "진입로 주변 공공자전거 대여소"],
     lat: 36.7985,
     lng: 127.1241,
-    tags: ["벤치", "자전거도로", "반려동물동반"]
+    tags: ["벤치", "자전거도로", "반려동물동반"],
   },
   {
     id: 5,
     type: "공원",
     name: "성성호수공원 (업성저수지)",
-    description: "생태 자원을 보존하며 수변 데크길이 아름답게 조성된 천안의 새로운 핫플레이스 공원입니다.",
+    description:
+      "생태 자원을 보존하며 수변 데크길이 아름답게 조성된 천안의 새로운 핫플레이스 공원입니다.",
     distance: 0,
     roadViewImage: "https://example.com",
     image: "https://example.com",
     address: "충청남도 천안시 서북구 성성동 120",
-    convenience: ["방문자센터 내 화장실, 수유실", "북측 및 남측 대형 주차장", "수변 전망대 매점"],
+    convenience: [
+      "방문자센터 내 화장실, 수유실",
+      "북측 및 남측 대형 주차장",
+      "수변 전망대 매점",
+    ],
     lat: 36.8453,
     lng: 127.1405,
-    tags: ["화장실", "주차장", "카페", "전망대", "수유실"]
+    tags: ["화장실", "주차장", "카페", "전망대", "수유실"],
   },
   {
     id: 6,
     type: "산책로",
     name: "성성호수 수변 데크길",
-    description: "성성호수공원을 크게 한 바퀴 돌 수 있는 평탄하고 쾌적한 나무 데크 산책로입니다.",
+    description:
+      "성성호수공원을 크게 한 바퀴 돌 수 있는 평탄하고 쾌적한 나무 데크 산책로입니다.",
     distance: 4100,
     roadViewImage: "https://example.com",
     image: "https://example.com",
@@ -82,27 +105,33 @@ const parksData = [
     convenience: ["코스 중간 야간 조명등 설치", "포토존 주변 벤치 구역"],
     lat: 36.8471,
     lng: 127.1442,
-    tags: ["벤치", "야간조명", "포토존"]
+    tags: ["벤치", "야간조명", "포토존"],
   },
   {
     id: 7,
     type: "공원",
     name: "신방체육공원",
-    description: "다양한 체육 시설과 넓은 잔디밭이 있어 가족 단위 방문객과 운동 마니아들이 찾는 공원입니다.",
+    description:
+      "다양한 체육 시설과 넓은 잔디밭이 있어 가족 단위 방문객과 운동 마니아들이 찾는 공원입니다.",
     distance: 0,
     roadViewImage: "https://example.com",
     image: "https://example.com",
     address: "충청남도 천안시 동남구 신방동 744",
-    convenience: ["축구장 옆 공중화장실", "매점 및 자판기 구역", "공원 전용 야외 주차장"],
+    convenience: [
+      "축구장 옆 공중화장실",
+      "매점 및 자판기 구역",
+      "공원 전용 야외 주차장",
+    ],
     lat: 36.7812,
     lng: 127.1265,
-    tags: ["화장실", "주차장", "매점", "축구장", "농구장"]
+    tags: ["화장실", "주차장", "매점", "축구장", "농구장"],
   },
   {
     id: 8,
     type: "산책로",
     name: "원성천 벚꽃길",
-    description: "봄이면 벚꽃이 만개하여 환상적인 터널을 이루는 천안 주민들의 로컬 산책 명소입니다.",
+    description:
+      "봄이면 벚꽃이 만개하여 환상적인 터널을 이루는 천안 주민들의 로컬 산책 명소입니다.",
     distance: 2800,
     roadViewImage: "https://example.com",
     image: "https://example.com",
@@ -110,111 +139,144 @@ const parksData = [
     convenience: ["원성교 하부 벤치 쉼터", "중간 지점 간이 화장실"],
     lat: 36.8041,
     lng: 127.1612,
-    tags: ["화장실", "벤치", "벚꽃명소"]
+    tags: ["화장실", "벤치", "벚꽃명소"],
   },
   {
     id: 9,
     type: "공원",
     name: "도솔광장",
-    description: "천안 IC 입구에 위치하여 야외 공연, 반려견 놀이터 등 다양한 여가를 즐길 수 있는 대형 광장 공원입니다.",
+    description:
+      "천안 IC 입구에 위치하여 야외 공연, 반려견 놀이터 등 다양한 여가를 즐길 수 있는 대형 광장 공원입니다.",
     distance: 0,
     roadViewImage: "https://example.com",
     image: "https://example.com",
     address: "충청남도 천안시 동남구 신부동 274",
-    convenience: ["지하 주차장 완비", "반려견 놀이터 내부 화장실", "클라이밍장 옆 음음수대"],
+    convenience: [
+      "지하 주차장 완비",
+      "반려견 놀이터 내부 화장실",
+      "클라이밍장 옆 음음수대",
+    ],
     lat: 36.8169,
     lng: 127.1725,
-    tags: ["화장실", "주차장", "반려견놀이터", "공연장"]
+    tags: ["화장실", "주차장", "반려견놀이터", "공연장"],
   },
   {
     id: 10,
     type: "산책로",
     name: "각원사 청동좌불상 산책길",
-    description: "웅장한 청동대불을 지나 산사의 고즈넉함과 계절의 변화를 느끼며 걷는 숲속 산책로입니다.",
+    description:
+      "웅장한 청동대불을 지나 산사의 고즈넉함과 계절의 변화를 느끼며 걷는 숲속 산책로입니다.",
     distance: 1500,
     roadViewImage: "https://example.com",
     image: "https://example.com",
     address: "충청남도 천안시 동남구 안서동 산98-83",
-    convenience: ["각원사 대형 무료 주차장", "사찰 내 개방 화장실", "전통 찻집 및 매점 인접"],
+    convenience: [
+      "각원사 대형 무료 주차장",
+      "사찰 내 개방 화장실",
+      "전통 찻집 및 매점 인접",
+    ],
     lat: 36.8322,
     lng: 127.1991,
-    tags: ["화장실", "주차장", "매점", "사찰"]
+    tags: ["화장실", "주차장", "매점", "사찰"],
   },
   {
     id: 11,
     type: "공원",
     name: "쌍용공원",
-    description: "쌍용동 주거 밀집 지역에 위치하여 접근성이 좋고, 울창한 나무들이 그늘을 만들어주는 공원입니다.",
+    description:
+      "쌍용동 주거 밀집 지역에 위치하여 접근성이 좋고, 울창한 나무들이 그늘을 만들어주는 공원입니다.",
     distance: 0,
     roadViewImage: "https://example.com",
     image: "https://example.com",
     address: "충청남도 천안시 서북구 쌍용동 1344",
-    convenience: ["공원 중앙 시계탑 옆 화장실", "지압 보도 및 야외 운동 기구 구역"],
+    convenience: [
+      "공원 중앙 시계탑 옆 화장실",
+      "지압 보도 및 야외 운동 기구 구역",
+    ],
     lat: 36.7955,
     lng: 127.1188,
-    tags: ["화장실", "운동기구", "지압보도"]
+    tags: ["화장실", "운동기구", "지압보도"],
   },
   {
     id: 12,
     type: "산책로",
     name: "봉서산 둘레길",
-    description: "경사가 완만하여 남녀노소 누구나 부담 없이 가볍게 등산하듯 걸을 수 있는 도심 속 산길 코스입니다.",
+    description:
+      "경사가 완만하여 남녀노소 누구나 부담 없이 가볍게 등산하듯 걸을 수 있는 도심 속 산길 코스입니다.",
     distance: 4500,
     roadViewImage: "https://example.com",
     image: "https://example.com",
     address: "충청남도 천안시 서북구 백석동 산46-1",
-    convenience: ["백석동 아이파크 아파트 뒤쪽 진입로 흙먼지털이기", "체육쉼터 내 의자"],
+    convenience: [
+      "백석동 아이파크 아파트 뒤쪽 진입로 흙먼지털이기",
+      "체육쉼터 내 의자",
+    ],
     lat: 36.8151,
     lng: 127.1215,
-    tags: ["벤치", "흙먼지털이기", "운동기구"]
+    tags: ["벤치", "흙먼지털이기", "운동기구"],
   },
   {
     id: 13,
     type: "공원",
     name: "청수호수공원",
-    description: "음악분수가 가동되어 여름철 시민들에게 시원한 볼거리와 휴식을 제공하는 친수 공원입니다.",
+    description:
+      "음악분수가 가동되어 여름철 시민들에게 시원한 볼거리와 휴식을 제공하는 친수 공원입니다.",
     distance: 0,
     roadViewImage: "https://example.com",
     image: "https://example.com",
     address: "충청남도 천안시 동남구 청당동 498",
-    convenience: ["법원 방향 주차 공간", "분수대 앞 관람 벤치 구역", "공원 남측 화장실"],
+    convenience: [
+      "법원 방향 주차 공간",
+      "분수대 앞 관람 벤치 구역",
+      "공원 남측 화장실",
+    ],
     lat: 36.7865,
     lng: 127.1555,
-    tags: ["화장실", "주차장", "음악분수", "벤치"]
+    tags: ["화장실", "주차장", "음악분수", "벤치"],
   },
   {
     id: 14,
     type: "산책로",
     name: "단대호수 (천호지) 둘레길",
-    description: "버스커버스커 노래로 유명한 '단대호수'를 감싸고 도는 야경이 무척 아름다운 산책로입니다.",
+    description:
+      "버스커버스커 노래로 유명한 '단대호수'를 감싸고 도는 야경이 무척 아름다운 산책로입니다.",
     distance: 2300,
     roadViewImage: "https://example.com",
     image: "https://example.com",
     address: "충청남도 천안시 동남구 안서동 526-1",
-    convenience: ["천호지 공영주차장 및 공중화장실", "산책로 주변 편의점 및 대형 카페 거리"],
+    convenience: [
+      "천호지 공영주차장 및 공중화장실",
+      "산책로 주변 편의점 및 대형 카페 거리",
+    ],
     lat: 36.8288,
     lng: 127.1772,
-    tags: ["화장실", "주차장", "편의점", "카페", "야간조명"]
+    tags: ["화장실", "주차장", "편의점", "카페", "야간조명"],
   },
   {
     id: 15,
     type: "공원",
     name: "직산삼은저수지 생활체육공원",
-    description: "직산 지역 주민들의 건강 증진을 위해 저수지 주변을 체육 공간으로 재탄생시킨 공원입니다.",
+    description:
+      "직산 지역 주민들의 건강 증진을 위해 저수지 주변을 체육 공간으로 재탄생시킨 공원입니다.",
     distance: 0,
     roadViewImage: "https://example.com",
     image: "https://example.com",
     address: "충청남도 천안시 서북구 직산읍 삼은리 510",
-    convenience: ["체육관 건물 내 화장실 이용 가능", "공원 입구 주차장", "야외 무대 앞 잔디밭"],
+    convenience: [
+      "체육관 건물 내 화장실 이용 가능",
+      "공원 입구 주차장",
+      "야외 무대 앞 잔디밭",
+    ],
     lat: 36.8778,
     lng: 127.1502,
-    tags: ["화장실", "주차장", "운동기구", "족구장"]
+    tags: ["화장실", "주차장", "운동기구", "족구장"],
   },
   {
     id: 16,
     type: "산책로",
     name: "매봉산 자락길",
-    description: "동남구 주민들이 주로 찾는 숨겨진 보석 같은 산책로로, 조용히 사색하며 걷기 좋습니다.",
+    description:
+      "동남구 주민들이 주로 찾는 숨겨진 보석 같은 산책로로, 조용히 사색하며 걷기 좋습니다.",
     distance: 2100,
     roadViewImage: "https://example.com",
     image: "https://example.com",
@@ -222,41 +284,52 @@ const parksData = [
     convenience: ["진입로 부근 정자 쉼터", "중간 갈림길 이정표 표지판"],
     lat: 36.7861,
     lng: 127.1321,
-    tags: ["벤치", "정자"]
+    tags: ["벤치", "정자"],
   },
   {
     id: 17,
     type: "공원",
     name: "방아다리공원",
-    description: "두정동 먹자골목 및 주거지와 인접해 있어 도심 속 허파 역할을 해주는 아담한 공원입니다.",
+    description:
+      "두정동 먹자골목 및 주거지와 인접해 있어 도심 속 허파 역할을 해주는 아담한 공원입니다.",
     distance: 0,
     roadViewImage: "https://example.com",
     image: "https://example.com",
     address: "충청남도 천안시 서북구 두정동 1018",
-    convenience: ["공원 간이 화장실", "어린이 종합 놀이대", "나무 그늘 아래 벤치"],
+    convenience: [
+      "공원 간이 화장실",
+      "어린이 종합 놀이대",
+      "나무 그늘 아래 벤치",
+    ],
     lat: 36.8282,
     lng: 127.1495,
-    tags: ["화장실", "놀이터", "벤치"]
+    tags: ["화장실", "놀이터", "벤치"],
   },
   {
     id: 18,
     type: "산책로",
     name: "독립기념관 단풍나무숲길",
-    description: "가을이 되면 붉게 물든 단풍나무 터널이 끝없이 펼쳐지는 전국구 규모의 명품 산책 코스입니다.",
+    description:
+      "가을이 되면 붉게 물든 단풍나무 터널이 끝없이 펼쳐지는 전국구 규모의 명품 산책 코스입니다.",
     distance: 3200,
     roadViewImage: "https://example.com",
     image: "https://example.com",
     address: "충청남도 천안시 동남구 목천읍 남화리 230-1",
-    convenience: ["독립기념관 초대형 주차장(유료)", "종합안내소 및 코스 시작점 화장실", "수유실 및 종합 매점 유치"],
+    convenience: [
+      "독립기념관 초대형 주차장(유료)",
+      "종합안내소 및 코스 시작점 화장실",
+      "수유실 및 종합 매점 유치",
+    ],
     lat: 36.7844,
     lng: 127.2231,
-    tags: ["화장실", "주차장", "매점", "수유실", "단풍명소"]
+    tags: ["화장실", "주차장", "매점", "수유실", "단풍명소"],
   },
   {
     id: 19,
     type: "공원",
     name: "백석어린이공원",
-    description: "아이들이 안전하게 뛰어놀 수 있는 바닥분수와 최신식 놀이시설을 갖춘 가족 친화형 공원입니다.",
+    description:
+      "아이들이 안전하게 뛰어놀 수 있는 바닥분수와 최신식 놀이시설을 갖춘 가족 친화형 공원입니다.",
     distance: 0,
     roadViewImage: "https://example.com",
     image: "https://example.com",
@@ -264,13 +337,14 @@ const parksData = [
     convenience: ["물놀이 철 임시 탈의실 운영", "놀이터 옆 개방형 화장실"],
     lat: 36.8229,
     lng: 127.1298,
-    tags: ["화장실", "놀이터", "바닥분수"]
+    tags: ["화장실", "놀이터", "바닥분수"],
   },
   {
     id: 20,
     type: "산책로",
     name: "풍서천 자전거 및 보행 산책로",
-    description: "풍세면 일대의 시골 풍경을 감상하며 여유롭게 자전거를 타거나 걸을 수 있는 긴 산책로입니다.",
+    description:
+      "풍세면 일대의 시골 풍경을 감상하며 여유롭게 자전거를 타거나 걸을 수 있는 긴 산책로입니다.",
     distance: 6800,
     roadViewImage: "https://example.com",
     image: "https://example.com",
@@ -278,8 +352,8 @@ const parksData = [
     convenience: ["하천변 진입 데크", "중간 쉼터 파고라 원두막"],
     lat: 36.7455,
     lng: 127.1192,
-    tags: ["벤치", "자전거도로", "외곽산책"]
-  }
+    tags: ["벤치", "자전거도로", "외곽산책"],
+  },
 ];
 
 export default parksData;
