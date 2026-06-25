@@ -5,9 +5,8 @@ import "./Main.css";
 import '../page2/Trail'
 import { AlignRight, Bold } from "lucide-react";
 
-function Main({Data,showIntro,setShowIntro}){
-    // const [showIntro, setShowIntro] = useState(true); // 제일 처음 화면 보이기, 이후 false
-    // 상세페이지에서 메인 돌아갈때 안뜨게 만들기 위해서 Navigation.jsx로 이동.
+function Main({Data}){
+    const [showIntro, setShowIntro] = useState(true); // 제일 처음 화면 보이기, 이후 false
     const [searchText, setSearchText] = useState(""); // 검색용
     const [hidePark, setHidePark] = useState(false); // 공원 숨기기
     const [hideTrail, setHideTrail] = useState(false); // 산책로 숨기기
@@ -151,7 +150,13 @@ function Main({Data,showIntro,setShowIntro}){
             <div className="body_container">
                 <div className="maps">
                     <div className="map-placeholder">
-                        <div id="map"></div>
+                        <div
+                            id="map"
+                            style={{
+                                width: "100%",
+                                height: "100%"
+                            }}
+                        ></div>
                     </div>
                 </div>
                 <div className="nameGroups">
@@ -195,7 +200,7 @@ function Main({Data,showIntro,setShowIntro}){
                             type="switch"
                             id="trail-switch"
                             label="산책로 숨김"
-                            className="me-3" /* 오른쪽 간격 띄우기 */
+                            className="me-2" /* 오른쪽 간격 띄우기 */
                             checked={hideTrail}
                             onChange={(e) => setHideTrail(e.target.checked)}
                         />
@@ -203,14 +208,14 @@ function Main({Data,showIntro,setShowIntro}){
                             type="switch"
                             id="park-switch"
                             label="공원 숨김"
-                            className="me-3" /* 오른쪽 간격 띄우기 */
+                            className="me-2" /* 오른쪽 간격 띄우기 */
                             checked={hidePark}
                             onChange={(e) => setHidePark(e.target.checked)}
                         />
                         <Form.Check 
                             type="switch"
                             id="current-place-switch"
-                            label="현재 위치"
+                            label="현재 위치 표시"
                             checked={showCurrentPlace}
                             onChange={(e) => setShowCurrentPlace(e.target.checked)}
                         />
@@ -218,13 +223,30 @@ function Main({Data,showIntro,setShowIntro}){
                 </div>
                 {
                     selectedPlace && 
-                    <div key={selectedPlace.id} className={`showSelectedPlace`} style={{ textAlign: "center" }}>
-                        <p><span className="titlePlace">{selectedPlace.name}</span> <span><button className="btn_close" onClick={()=>{
+                    <div key={selectedPlace.id} 
+                        className={`showSelectedPlace`} 
+                        style={{ textAlign: "center" }}>
+                        <p><span className="titlePlace">{selectedPlace.name}</span> <span><button className="btn_close" style={{
+                            border:'none',
+                            background:'none',
+                            position: "absolute",
+                            right: "1vh",
+                            top: "1.3vh",
+                            transform: "translateY(-50%)"             
+                        }} onClick={()=>{
                             setSelectedPlace(null);   
                             setSelectedPlaceId(null);             
                         }}>X</button></span></p>
                         <p>
-                            <img src={selectedPlace.image} className="selectedPlaceImg" alt={selectedPlace.name}/>
+                            <img
+                                src={selectedPlace.image}
+                                style={{
+                                    width: "350px",
+                                    height: "200px",
+                                    objectFit: "cover"
+                                }}
+                                alt={selectedPlace.name}
+                            />
                         </p>
                         <div className="infoArea">
                         {
@@ -246,8 +268,16 @@ function Main({Data,showIntro,setShowIntro}){
                             showCurrentPlace &&
                             <p>현재 위치로부터 약 {Math.floor(distance/100)/10}KM</p>
                         }
+                        {console.log(location)}
                         </div>
-                        <button id="detail-btn">상세 보기</button>
+                        <button 
+                            id="detail-btn" style={{
+                            background: "#03C75A",
+                            color: "white",
+                            border: "none",
+                            borderRadius: "6px",
+                            padding: "6px 12px"
+                        }}>상세 보기</button>
                     </div>
                 }
             </div>
