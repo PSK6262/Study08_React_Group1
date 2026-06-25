@@ -27,33 +27,33 @@ function Park3() {
   }
 
   return (
-    <div className="container">
+    <div className="park-detail-container">
       <div className="namebox">
-        <div className="name">
+        <div className="parkname">
           <h2>{data.name}</h2>
           <span className="tag">{data.type}</span>
         </div>
-        <p className="address">주소: {data.address}</p>
+        <p className="parkaddress">주소: {data.address}</p>
       </div>
 
-      <div className="main">
-        <div className="img">
+      <div className="parkmain">
+        <div className="park-detail-img">
           <img src={data.image} />
         </div>
 
-        <div className="box">
-          <div className="description">
+        <div className="parkmainbox">
+          <div className="parkdescription">
             <h5> 공원 소개 </h5>
             <p>{data.description}</p>
           </div>
 
-          <div className="vusdml">
-            <h5 className="convenience">편의시설</h5>
+          <div className="parkvusdml">
+            <h5 className="parkconvenience">편의시설</h5>
 
-            <div className="dnlcl">
+            <div className="parkdnlcl">
               {data.convenience &&
                 data.convenience.map((text, idx) => (
-                  <div key={idx} className="item">
+                  <div key={idx} className="parkvusdmlitem">
                     {text}
                   </div>
                 ))}
@@ -61,7 +61,7 @@ function Park3() {
           </div>
         </div>
 
-        <div className="button1">
+        <div className="parkvusdmlbutton1">
           <button className="parkbtn1" onClick={() => {}}>
             !공원 후기 및 후기 작성!
           </button>
