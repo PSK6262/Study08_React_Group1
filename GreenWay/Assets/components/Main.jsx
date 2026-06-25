@@ -10,12 +10,20 @@ function Main({Data}){
     const [searchText, setSearchText] = useState(""); // 검색용
     const [hidePark, setHidePark] = useState(false); // 공원 숨기기
     const [hideTrail, setHideTrail] = useState(false); // 산책로 숨기기
+    const [showCurrentPlace, setShowCurrentPlace] = useState(false); // 현재 위치 보이기
     const [selectedPlaceId, setSelectedPlaceId] = useState(null); // 현재 클릭중인 장소 표시
     const [selectedPlace, setSelectedPlace] = useState(null);
     const mapRef = useRef(null);
     const markerRef = useRef(null);
+    const currentPlaceMarkerRef = useRef(null);
     const infoWindowRef = useRef(null);
     const navigate = useNavigate();
+    
+    const [currentLat, setCurrentLat] = useState(null);
+    const [currentLng, setCurrentLng] = useState(null);
+    const [destination, setDestination] = useState(null); 
+    const [location, setLocation] = useState(null);
+    const [distance, setDistance] = useState(0);
 
     const filteredData = Data.filter((item) => { // 오른쪽 Group에서 보여줄 것, true인것만 표현
         if (hidePark && item.type === "공원") return false;
@@ -25,6 +33,19 @@ function Main({Data}){
         }
         return true;
     });
+
+    useEffect(() => {
+        if(showCurrentPlace){
+            getBrowserLocation();
+        } 
+        else {
+            if(currentPlaceMarkerRef.current !== null){
+                currentPlaceMarkerRef.current.setMap(null);                  
+            }
+        }
+    },[showCurrentPlace,currentLat,currentLng])
+
+
     useEffect(() => { // 네이버 지도 표시 (API 사용)
         if (!window.naver) return;
         const mapOptions = {
@@ -40,41 +61,81 @@ function Main({Data}){
         );
     }, []); 
 
+    useEffect(()=> {
+        if(currentLat && currentLng && selectedPlace){
+            const selected_lat = selectedPlace.lat;
+            const selected_lng = selectedPlace.lng;
+            const Departure = new naver.maps.LatLng(currentLat,currentLng);
+            const Destination = new naver.maps.LatLng(selected_lat,selected_lng);
+            setDistance(mapRef.current.getProjection().getDistance(Departure,Destination));
+        }
+    },[selectedPlace,currentLat,currentLng])
+    // 현재 위치 반환 코드 (HTML5 Geolocation API)
+    // HTML5 Geolocation API는 브라우저 내장이므로 무료.
+    const getBrowserLocation = () => {
+        if(navigator.geolocation){
+            navigator.geolocation.getCurrentPosition((position)=>{
+                    const c_lat = position.coords.latitude;
+                    const c_lng = position.coords.longitude;
+                    if(c_lat && c_lng){
+                        setCurrentLat(c_lat);    
+                        setCurrentLng(c_lng);
+                        if(currentPlaceMarkerRef.current !== null) currentPlaceMarkerRef.current.setMap(null);
+                        currentPlaceMarkerRef.current = new window.naver.maps.Marker({
+                        position: new window.naver.maps.LatLng(c_lat,c_lng),
+                        map: mapRef.current});
+                    }
+                },
+                (error)=>{
+                    alert(`위치 권한 거부 또는 오류 : `, error);
+                }
+            );
+        } else {
+            alert(`이 브라우저는 위치 정보를 지원하지 않습니다.`);
+        }
+    }
+
     const moveMap = (place) => { // Group에서 새로운 위치를 찍으면 이동한다.
         if (!mapRef.current) return;
-        const location = new window.naver.maps.LatLng(
+        const moveLocation = new window.naver.maps.LatLng(
             place.lat,
             place.lng
-        );
+        )
+
+        setLocation(moveLocation);
         setSelectedPlaceId(place.id); // 그룹멤버 클릭시 , 클릭 되었음을 보여줌
         setSelectedPlace(place); // 멤버 클릭시 그 장소를 저장함
-        mapRef.current.panTo(location); // 천천히 이동
-        mapRef.current.setZoom(15);
-        // 기존 마커 지우기
-        if (markerRef.current) {
-            markerRef.current.setMap(null);
+        if(moveLocation !== null) {
+                mapRef.current.panTo(moveLocation); // 천천히 이동
+                mapRef.current.setZoom(15);
+                // 기존 마커 지우기
+            if (markerRef.current) {
+                markerRef.current.setMap(null);
+            }
+            // 새 마커 만들기
+            markerRef.current = new window.naver.maps.Marker({
+                position: moveLocation,
+                map: mapRef.current
+            });
+            setTimeout(() => {
+                const btn = document.getElementById("detail-btn");
+                if (!btn) return;
+                btn.onclick = () => {
+                    if (place.type === "공원") {
+                        navigate(`/park/${place.id}`, {
+                            // state: { data: place }
+                            state : {cLat : currentLat , cLng : currentLng , dist : distance}
+                        });
+                    }
+                    else {
+                        navigate(`/trail/${place.id}`, {
+                            // state: { data: place }
+                            state : {cLat : currentLat , cLng : currentLng , dist : distance}
+                        });
+                    }
+                };
+            }, 100);
         }
-        // 새 마커 만들기
-        markerRef.current = new window.naver.maps.Marker({
-            position: location,
-            map: mapRef.current
-        });
-        setTimeout(() => {
-            const btn = document.getElementById("detail-btn");
-            if (!btn) return;
-            btn.onclick = () => {
-                if (place.type === "공원") {
-                    navigate(`/park/${place.id}`, {
-                        state: { data: place }
-                    });
-                }
-                else {
-                    navigate(`/trail/${place.id}`, {
-                        state: { data: place }
-                    });
-                }
-            };
-        }, 100);
     };   
     return(
         <>
@@ -139,7 +200,7 @@ function Main({Data}){
                             type="switch"
                             id="trail-switch"
                             label="산책로 숨김"
-                            className="me-5" /* 오른쪽 간격 띄우기 */
+                            className="me-2" /* 오른쪽 간격 띄우기 */
                             checked={hideTrail}
                             onChange={(e) => setHideTrail(e.target.checked)}
                         />
@@ -147,8 +208,16 @@ function Main({Data}){
                             type="switch"
                             id="park-switch"
                             label="공원 숨김"
+                            className="me-2" /* 오른쪽 간격 띄우기 */
                             checked={hidePark}
                             onChange={(e) => setHidePark(e.target.checked)}
+                        />
+                        <Form.Check 
+                            type="switch"
+                            id="current-place-switch"
+                            label="현재 위치 표시"
+                            checked={showCurrentPlace}
+                            onChange={(e) => setShowCurrentPlace(e.target.checked)}
                         />
                     </div>
                 </div>
@@ -195,6 +264,11 @@ function Main({Data}){
                             // 일단은 2개만 출력
                             <p>태그 : {selectedPlace.tags[0]}, {selectedPlace.tags[1]}</p>
                         }
+                        {
+                            showCurrentPlace &&
+                            <p>현재 위치로부터 약 {Math.floor(distance/100)/10}KM</p>
+                        }
+                        {console.log(location)}
                         </div>
                         <button 
                             id="detail-btn" style={{

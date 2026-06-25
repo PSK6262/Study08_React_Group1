@@ -178,12 +178,15 @@ body {
     left:12vh;
     right:0;
     width:350px;
-    height:360px;
+    height:380px;
     background:white;
     border-radius:20px 20px 20px 20px;
     box-shadow:0 -4px 20px rgba(0,0,0,0.15);
     z-index:1000;
     animation: slideUp 0.25s ease-out;
+}
+.switch-container-horizontal{
+    font-size: 12px;
 }
 .btn_close{
     color:#888;
@@ -195,7 +198,7 @@ body {
 }
 .infoArea{
     font-size: 15px;
-    height: 80px;
+    height: 100px;
     margin-top: 4px;
 }
 /* 안내 문구 깜빡임 효과 */
