@@ -1,6 +1,6 @@
 import { href, useParams } from 'react-router'
 import { Container, Row, Col } from 'react-bootstrap';
-import { MapPin, Sparkles, Ruler, ParkingCircle, Clock, Star } from "lucide-react";
+import { MapPin, Sparkles, Ruler, ParkingCircle, Clock, Star, ThumbsUp, ThumbsDown } from "lucide-react";
 import './Trail.css';
 import parksData from '../data/parksData.js';
 import { motion } from 'framer-motion';
@@ -11,9 +11,13 @@ function Trail() {
     const [ data, setData ] = useState(null);
     const [ vusdml, setVusdml ] = useState(false);
     const [ showWebsite, setShowWebsite ] = useState(false);
-    let [ likeCount, setLikeCount ] = useState(() => {
-        const saveLikeCount = localStorage.getItem(`trail_like_${id}`)
-        return saveLikeCount ? parseInt(saveLikeCount, 10) : 0;
+    let [ upCount, setUpCount ] = useState(() => {
+        const saveUpCount = localStorage.getItem(`trail_up_${id}`)
+        return saveUpCount ? parseInt(saveUpCount, 10) : 0;
+    });
+    let [ downCount, setDownCount ] = useState(() => {
+        const saveDownCount = localStorage.getItem(`trail_down_${id}`)
+        return saveDownCount ? parseInt(saveDownCount, 10) : 0;
     });
     const [ comments, setComments ] = useState([]);
     const [ inputText, setInputText ] = useState("");
@@ -24,8 +28,10 @@ function Trail() {
             setData(trail);
             const saveComments = localStorage.getItem(`trail_comment_${id}`)
             setComments(saveComments ? JSON.parse(saveComments) : [])
-            const saveLikeCount = localStorage.getItem(`trail_like_${id}`)
-            setLikeCount(saveLikeCount ? JSON.parse(saveLikeCount) : [])
+            const saveUpCount = localStorage.getItem(`trail_up_${id}`)
+            setUpCount(saveUpCount ? JSON.parse(saveUpCount) : [])
+            const saveDownCount = localStorage.getItem(`trail_down_${id}`)
+            setDownCount(saveDownCount ? JSON.parse(saveDownCount) : [])
         } else {
             setData(null);
         }
@@ -33,9 +39,15 @@ function Trail() {
 
     useEffect(() => {
         if (id) {
-            localStorage.setItem(`trail_like_${id}`, likeCount.toString())
+            localStorage.setItem(`trail_up_${id}`, upCount.toString())
         }
-    }, [ likeCount, id ])
+    }, [ upCount, id ])
+
+    useEffect(() => {
+        if (id) {
+            localStorage.setItem(`trail_down_${id}`, downCount.toString())
+        }
+    }, [ downCount, id ])
 
     useEffect(() => {
         if (id && data) {
@@ -118,14 +130,6 @@ function Trail() {
                     <div className="t-name">
                         <h2>{data.name}</h2>
                         <span className="tag">{data.type}</span>
-                        <h5 style={{ cursor: 'pointer', display: 'inline-block' }}>
-                            <span onClick={() => {
-                                setLikeCount(likeCount + 1)
-                                localStorage.setItem(likeCount);
-                            }}><Star size={24} color='greenyellow' /></span>
-                            {likeCount}
-                        </h5>
-
                     </div>
                     <div className="t-address" style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '8px' }}>
                         <MapPin size={20} color='orange' />
@@ -134,10 +138,53 @@ function Trail() {
                 </div>
 
                 <div className="t-main">
-                    <div className="img">
-                        <img src={data.image} alt={data.name} />
-                    </div>
 
+                    <div>
+                        <div className="img" style={{ width: '100%', borderRadius: '24px', aspectRatio:'4/3'}}>
+                            <img src={data.image} alt={data.name} style={{ width: '100%', height: 'auto'}} />
+                        </div>
+
+                        <div style={{
+                            width: '100%',
+                            background: '#ffffff',
+                            borderRadius: '16px',
+                            border: '1px solid #e2e8f0',
+                            boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)',
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                        }}>
+                            <span style={{ fontSize: '16px', fontWeight: '700', color: '#334155', marginTop: '20px'}}>
+                                😆 이 산책로, 어떠셨나요?
+                            </span>
+
+                            <div style={{ display: 'flex', marginTop: '20px', alignItems: 'center' }}>
+                                <button
+                                    onClick={() => {
+                                        const nextUp = upCount + 1;
+                                        setUpCount(nextUp);
+                                        localStorage.setItem(`trail_up_${id}`, nextUp.toString());
+                                    }}
+                                    style={{ display: 'flex', alignItems: 'center', gap: '6px', background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '6px 14px', borderRadius: '20px', cursor: 'pointer', transition: 'all 0.2s' }}
+                                >
+                                    <ThumbsUp size={16} color='#16a34a' fill='#16a34a' />
+                                    <strong style={{ color: '#16a34a', fontSize: '13.5px' }}>{upCount}</strong>
+                                </button>
+                                <button
+                                    onClick={() => {
+                                        const nextDown = downCount + 1;
+                                        setDownCount(nextDown);
+                                        localStorage.setItem(`trail_down_${id}`, nextDown.toString());
+                                    }}
+                                    style={{ display: 'flex', alignItems: 'center', gap: '6px', background: '#fef2f2', border: '1px solid #fecaca', padding: '6px 14px', borderRadius: '20px', cursor: 'pointer', transition: 'all 0.2s' }}
+                                >
+                                    <ThumbsDown size={16} color='#dc2626' fill='#dc2626' />
+                                    <strong style={{ color: '#dc2626', fontSize: '13.5px' }}>{downCount}</strong>
+                                </button>
+                            </div>
+                        </div>
+                        <button style={{display:'flex', borderRadius:'16px',fontSize:'24px',marginTop:'20px', cursor:'pointer', justifyContent: 'center',margin: '20px auto 0',fontWeight: '550',color: '#334155', border: '1px solid #e2e8f0', boxShadow : '0 4px 6px -1px rgba(0,0,0,0.05)'}}>🖨 공유하기</button>
+                    </div>
                     <div className="box">
                         <div className="description">
                             <h5> 소개 </h5>
@@ -163,37 +210,37 @@ function Trail() {
                                 <Clock size={18} color='green' />
                                 <span><strong>산책 시간:</strong> {data.time}분</span>
                             </div>
-                                <div className="comment-section" style={{ flex: '0 0 45%', background: '#white', borderRadius: '16px', padding: '24px', border: '1px solid #e2e8f0', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}>
-                                    <h5 style={{ fontWeight: '700', marginBottom: '16px', color: '#111' }}>🖍 한줄평 후기 ({comments.length})</h5>
+                            <div className="comment-section" style={{ flex: '0 0 45%', background: '#white', borderRadius: '16px', padding: '24px', border: '1px solid #e2e8f0', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}>
+                                <h5 style={{ fontWeight: '700', marginBottom: '16px', color: '#111' }}>🖍 한줄평 후기 ({comments.length})</h5>
 
-                                    <div className="comment-list-container" style={{ maxHeight: '200px', overflowY: 'auto', marginBottom: '16px', paddingRight: '4px' }}>
-                                        {comments.length === 0 ? (
-                                            <p style={{ color: '#aaa', fontSize: '14px', textAlign: 'center', padding: '20px 0' }}>첫 번째 후기를 남겨보세요!</p>
-                                        ) : (
-                                            comments.map((comment) => (
-                                                <div key={comment.id} style={{ background: '#f8fafc', padding: '12px 16px', borderRadius: '8px', marginBottom: '8px', border: '1px solid #f1f5f9', fontSize: '14px', color: '#334155', textAlign: 'left' }}>
-                                                    <span style={{ fontWeight: 'bold', color: 'green', marginRight: '8px' }}>walk-friend</span>
-                                                    {comment.text}
-                                                </div>
-                                            ))
-                                        )}
-                                    </div>
-
-                                    <div style={{ display: 'flex', gap: '10px', alignItems: 'stretch' }}>
-                                        <textarea
-                                            value={inputText}
-                                            onChange={(e) => setInputText(e.target.value)}
-                                            placeholder="산책로에 대한 따뜻한 후기를 익명으로 남겨주세요."
-                                            style={{ flex: 1, height: '54px', padding: '10px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '14px', resize: 'none', outline: 'none' }}
-                                        />
-                                        <button
-                                            onClick={addComments}
-                                            style={{ width: '80px', background: 'green', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 'bold', fontSize: '14px', cursor: 'pointer' }}
-                                        >
-                                            등록
-                                        </button>
-                                    </div>
+                                <div className="comment-list-container" style={{ maxHeight: '200px', overflowY: 'auto', marginBottom: '16px', paddingRight: '4px' }}>
+                                    {comments.length === 0 ? (
+                                        <p style={{ color: '#aaa', fontSize: '14px', textAlign: 'center', padding: '20px 0' }}>첫 번째 후기를 남겨보세요!</p>
+                                    ) : (
+                                        comments.map((comment) => (
+                                            <div key={comment.id} style={{ background: '#f8fafc', padding: '12px 16px', borderRadius: '8px', marginBottom: '8px', border: '1px solid #f1f5f9', fontSize: '14px', color: '#334155', textAlign: 'left' }}>
+                                                <span style={{ fontWeight: 'bold', color: 'green', marginRight: '8px' }}>walk-friend</span>
+                                                {comment.text}
+                                            </div>
+                                        ))
+                                    )}
                                 </div>
+
+                                <div style={{ display: 'flex', gap: '10px', alignItems: 'stretch' }}>
+                                    <textarea
+                                        value={inputText}
+                                        onChange={(e) => setInputText(e.target.value)}
+                                        placeholder="산책로에 대한 따뜻한 후기를 익명으로 남겨주세요."
+                                        style={{ flex: 1, height: '54px', padding: '10px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '14px', resize: 'none', outline: 'none' }}
+                                    />
+                                    <button
+                                        onClick={addComments}
+                                        style={{ width: '80px', background: 'green', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 'bold', fontSize: '14px', cursor: 'pointer' }}
+                                    >
+                                        등록
+                                    </button>
+                                </div>
+                            </div>
 
                         </div>
                     </div>
