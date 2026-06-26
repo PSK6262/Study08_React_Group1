@@ -174,11 +174,11 @@ function Trail() {
                         </div>
 
                         <div className="vote-bar">
-                            <span style={{ fontSize: '20px', fontWeight: '700', color: '#334155' }}>
+                            <span style={{ fontSize: '20px', fontWeight: '700', color: '#334155'}}>
                                 😆 이 산책로, 어떠셨나요?
                             </span>
 
-                            <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+                            <div style={{ display: 'flex', gap: '16px', alignItems: 'center', marginLeft: '50px', marginTop:'15px'}}>
                                 <button
                                     onClick={() => setUpCount(upCount + 1)}
                                     style={{ display: 'flex', alignItems: 'center', gap: '6px', background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '6px 14px', borderRadius: '20px', cursor: 'pointer' }}
