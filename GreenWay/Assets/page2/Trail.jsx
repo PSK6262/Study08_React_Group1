@@ -21,6 +21,10 @@ function Trail() {
     });
     const [ comments, setComments ] = useState([]);
     const [ inputText, setInputText ] = useState("");
+
+    const [ cLat, setCLat ] = useState(null);
+    const [ cLng, setCLng ] = useState(null);
+    const [ navUrl, setNavUrl ] = useState("");
     useEffect(() => {
         const trail = parksData.find((item) => item.id == id);
 
@@ -54,6 +58,29 @@ function Trail() {
             localStorage.setItem(`trail_comment_${id}`, JSON.stringify(comments));
         }
     }, [ comments, id, data ]);
+
+    useEffect(() => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    setCLat(position.coords.latitude);
+                    setCLng(position.coords.longitude);
+                },
+                (error) => console.error("❌ GPS 불통:", error)
+            )
+        }
+    }, [])
+
+    useEffect(() => {
+        if (data && data.nav) {
+            if (cLat && cLng) {
+                const patchedUrl = data.nav.replace('/-/', `/${cLng},${cLat}/`);
+                setNavUrl(patchedUrl);
+            } else {
+                setNavUrl(data.nav)
+            }
+        }
+    }, [ data, cLat, cLng ])
 
     const renderConvenience = (convenienceData) => {
         if (!convenienceData) return "없음";
@@ -138,10 +165,10 @@ function Trail() {
                 </div>
 
                 <div className="t-main">
-                    
+
 
                     <div className="left-column">
-                        
+
                         <div className="img">
                             <img src={data.image} alt={data.name} />
                         </div>
@@ -150,16 +177,16 @@ function Trail() {
                             <span style={{ fontSize: '20px', fontWeight: '700', color: '#334155' }}>
                                 😆 이 산책로, 어떠셨나요?
                             </span>
-                            
+
                             <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-                                <button 
+                                <button
                                     onClick={() => setUpCount(upCount + 1)}
                                     style={{ display: 'flex', alignItems: 'center', gap: '6px', background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '6px 14px', borderRadius: '20px', cursor: 'pointer' }}
                                 >
                                     <ThumbsUp size={20} color='#16a34a' fill='#16a34a' />
                                     <strong style={{ color: '#16a34a', fontSize: '13.5px' }}>{upCount}</strong>
                                 </button>
-                                <button 
+                                <button
                                     onClick={() => setDownCount(downCount + 1)}
                                     style={{ display: 'flex', alignItems: 'center', gap: '6px', background: '#fef2f2', border: '1px solid #fecaca', padding: '6px 14px', borderRadius: '20px', cursor: 'pointer' }}
                                 >
@@ -169,7 +196,7 @@ function Trail() {
                             </div>
                         </div>
 
-                        <button className="share-btn" style={{borderRadius:'10px'}}>
+                        <button className="share-btn" style={{ borderRadius: '10px' }}>
                             🖨️ 공유하기
                         </button>
 
@@ -177,7 +204,7 @@ function Trail() {
 
 
                     <div className="right-column">
-                        
+
                         <div className="box" style={{ width: '100%' }}>
                             <div className="description">
                                 <h5> 소개 </h5>
@@ -207,19 +234,19 @@ function Trail() {
                         </div>
                     </div>
                 </div>
-                <button 
-                            className="nav-button" 
-                            onClick={() => {
-                                if (data && data.nav) {
-                                    setShowWebsite(!showWebsite)
-                                } else {
-                                    alert("등록된 사이트 링크가 없습니다!");
-                                }
-                            }}
-                            style={{ marginTop: '20px' }}
-                        >
-                        네비게이션
-                        </button>
+                <button
+                    className="nav-button"
+                    onClick={() => {
+                        if (data && data.nav) {
+                            setShowWebsite(!showWebsite)
+                        } else {
+                            alert("등록된 사이트 링크가 없습니다!");
+                        }
+                    }}
+                    style={{ marginTop: '20px' }}
+                >
+                    네비게이션
+                </button>
 
                 {showWebsite && data.nav && (
                     <motion.div
@@ -231,7 +258,7 @@ function Trail() {
                             {data.name}
                         </div>
                         <iframe
-                            src={data.nav}
+                            src={navUrl}
                             title={`${data.name} 웹사이트`}
                             style={{ width: '100%', height: '600px', border: 'none', backgroundColor: '#white' }}
                         />
