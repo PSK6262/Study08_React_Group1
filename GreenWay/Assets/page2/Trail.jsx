@@ -249,7 +249,7 @@ function Trail() {
                                 >
                                     ▶ 추천 플레이리스트(유튜브)
                                 </button>
-                                <div className="comment-section" style={{ flex: '0 0 45%', borderRadius: '16px', padding: '24px', border: '1px solid #e2e8f0', boxShadow: 'rgba(0,0,0,0.05)', marginTop: '25px', borderColor: '#A1887F' }}>
+                                <div className="comment-section" style={{ flex: '0 0 45%', borderRadius: '16px', padding: '24px', border: '1px solid #e2e8f0', boxShadow: 'rgba(0,0,0,0.05)', marginTop: '25px', borderColor: '#A1887F',transition: 'all 0.3s ease' }}>
                                     <h5 style={{ fontWeight: '700', marginBottom: '16px', color: '#111' }}>🖍 한줄평 후기 ({comments.length})</h5>
 
                                     <div className="comment-list-container" style={{ maxHeight: '200px', overflowY: 'auto', marginBottom: '16px', paddingRight: '4px' }}>
@@ -270,7 +270,7 @@ function Trail() {
                                             value={inputText}
                                             onChange={(e) => setInputText(e.target.value)}
                                             placeholder="산책로에 대한 따뜻한 후기를 익명으로 남겨주세요."
-                                            style={{ flex: 1, height: '54px', padding: '10px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '14px', resize: 'none', outline: 'none' }}
+                                            style={{ flex: 1, height: '54px', padding: '10px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '14px', resize: 'none', outline: 'none' ,transition: 'all 0.2s ease-in-out'}}
                                         />
                                         <button
                                             onClick={addComments}

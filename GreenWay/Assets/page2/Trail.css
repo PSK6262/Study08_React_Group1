@@ -164,3 +164,30 @@ li{
     border: 1px solid #e2e8f0; 
     text-align: left;
 }
+
+.comment-section:hover {
+    transform: translateY(-2px);
+}
+
+textarea:focus{
+    outline: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    border-color: green !important;;
+}
+
+.comment-list-container::-webkit-scrollbar {
+    width: 6px; 
+}
+
+.comment-list-container::-webkit-scrollbar {
+    width: 6px; 
+}
+
+.comment-list-container::-webkit-scrollbar-thumb {
+    background-color: #A3BF9E; 
+    border-radius: 10px;       
+}
+
+.comment-list-container::-webkit-scrollbar-thumb:hover {
+    background-color: #4A5D4E; 
+}
