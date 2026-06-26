@@ -13,7 +13,7 @@ const parksData = [
     convenience: [
       "정문 우측 대형 화장실",
       "공원 중앙 잔디광장 옆 매점",
-      "서문 주차장 근처 음음수대",
+      "서문 주차장 근처 음수대",
     ],
     lat: 36.7891,
     lng: 127.1664,
@@ -26,7 +26,7 @@ const parksData = [
     type: "산책로",
     name: "태조산 솔바람길",
     description:
-      "소나무 숲길을 따라 걸으며 천안 시내를 한눈에 내려다볼 수 있는 힐링 코스 입니다.",
+      "소나무 숲길을 따라 걸으며 천안 시내를 한눈에 내려다볼 수 있는 힐링 코스입니다.",
     distance: 6730,
     roadViewImage: "https://example.com",
     image: "/images/id2.PNG",
@@ -351,7 +351,7 @@ const parksData = [
     convenience: [
       "독립기념관 초대형 주차장(유료)",
       "종합안내소 및 코스 시작점 화장실",
-      "수유실 및 종합 매점 유치",
+      "수유실 및 종합 매점 위치",
     ],
     lat: 36.7844,
     lng: 127.2231,
