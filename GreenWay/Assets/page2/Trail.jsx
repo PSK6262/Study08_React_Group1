@@ -145,6 +145,16 @@ function Trail() {
         setInputText("");
     }
 
+        const shareLink = () => {
+            const currentUrl = window.location.href;
+            navigator.clipboard.writeText(currentUrl)
+                .then(()=>{
+                    alert('링크가 복사되었습니다!')
+                })
+                .catch(()=>{
+                    alert('링크 복사에 실패하였습니다! 다시 시도해주세요!')
+                })
+        }
     return (
         <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -194,7 +204,8 @@ function Trail() {
                                     <ThumbsDown size={20} color='#dc2626' fill='#dc2626' />
                                     <strong style={{ color: '#dc2626', fontSize: '13.5px' }}>{downCount}</strong>
                                 </button>
-                                <button className="share-btn" style={{ backgroundColor: '#f1f5f9', border: 'none', marginLeft: '25px', borderRadius: '12px', width: '200px' }}>
+                                <button className="share-btn" onClick={shareLink} 
+                                style={{ backgroundColor: '#f1f5f9', border: 'none', marginLeft: '25px', borderRadius: '12px', width: '200px' }}>
                                     🖨️ 공유하기
                                 </button>
                             </div>
