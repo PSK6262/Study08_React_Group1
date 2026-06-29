@@ -71,8 +71,8 @@ function Main({Data,showIntro,setShowIntro}){
         if (!window.naver) return;
         const mapOptions = {
             center: new window.naver.maps.LatLng(
-                Data[0].lat,
-                Data[0].lng
+                Data?.[0]?.lat,
+                Data?.[0]?.lng
             ),
             zoom: 15
         };
@@ -86,8 +86,8 @@ function Main({Data,showIntro,setShowIntro}){
         if(currentLat && currentLng && selectedPlace){
             const selected_lat = selectedPlace.lat;
             const selected_lng = selectedPlace.lng;
-            const Departure = new naver.maps.LatLng(currentLat,currentLng);
-            const Destination = new naver.maps.LatLng(selected_lat,selected_lng);
+            const Departure = new window.naver.maps.LatLng(currentLat,currentLng);
+            const Destination = new window.naver.maps.LatLng(selected_lat,selected_lng);
             setDistance(mapRef.current.getProjection().getDistance(Departure,Destination));
         }
     },[selectedPlace,currentLat,currentLng])
@@ -183,34 +183,34 @@ function Main({Data,showIntro,setShowIntro}){
                             value={searchText}
                             onChange={(e)=>setSearchText(e.target.value)}
                         />
-                        <p className="searchData">검색 결과 {filteredData.length + fav.length}개</p>
+                        <p className="searchData">즐겨찾기 {fav.length}개 , 검색 결과 {filteredData.length}개</p>
                     </div>
                     {/* 검색하면 아래 리스트에서 해당하는것만 나오게. */}
-                    <ListGroup className="nameList">
+                    <ListGroup className="nameList_fav">
                     {
                         fav.length>0 && fav.map((item)=>{
                             return(
-                                <>
                                     <ListGroup.Item
                                         key={item.id}
                                         variant="light"
                                         onClick={() => moveMap(item)}
                                         style={{ cursor: "pointer" }}
                                         className={item.id === selectedPlaceId ? "selectedPlace":""}
-                                    >
-                                    <button className="favorite_btn" onClick={(e)=>{
-                                        e.stopPropagation();
-                                        if(localStorage.getItem(`favorite_${item.id}`) === 'true') 
-                                            localStorage.removeItem(`favorite_${item.id}`);
-                                        else localStorage.setItem(`favorite_${item.id}`,'true');
-                                        changeFav();
-                                    }}>★</button>
-                                        {item.name}
+                                        >
+                                        <button className="favorite_btn" onClick={(e)=>{
+                                            e.stopPropagation();
+                                            if(localStorage.getItem(`favorite_${item.id}`) === 'true') 
+                                                localStorage.removeItem(`favorite_${item.id}`);
+                                            else localStorage.setItem(`favorite_${item.id}`,'true');
+                                            changeFav();
+                                        }}>★</button>
+                                            {item.name}
                                     </ListGroup.Item>
-                                </>
                             )
                         })
                     }
+                    </ListGroup>
+                    <ListGroup className="nameList">
                     {
                         // 만약 길이가 0 이다 -> 아무것도 없다.
                         filteredData.length === 0 
@@ -221,8 +221,7 @@ function Main({Data,showIntro,setShowIntro}){
                         )
                         :
                         (
-                            filteredData.map((item,index) => ( // return
-                                <>
+                            filteredData.map((item) => ( // return
                                     <ListGroup.Item
                                         key={item.id}
                                         variant="light"
@@ -230,7 +229,7 @@ function Main({Data,showIntro,setShowIntro}){
                                         style={{ cursor: "pointer" }}
                                         className={item.id === selectedPlaceId ? "selectedPlace":""}
                                     >
-                                    <button className="non_favorite_btn" key={item.id} onClick={(e)=>{
+                                    <button className="non_favorite_btn" onClick={(e)=>{
                                         e.stopPropagation();
                                         if(localStorage.getItem(`favorite_${item.id}`) === 'true') {
                                             localStorage.removeItem(`favorite_${item.id}`);
@@ -242,7 +241,6 @@ function Main({Data,showIntro,setShowIntro}){
                                     }}>☆</button>
                                         {item.name}
                                     </ListGroup.Item>
-                                </>
                             ))
                         )
                     }

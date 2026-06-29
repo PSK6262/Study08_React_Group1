@@ -73,15 +73,33 @@ body {
     flex-direction: column;
 }
 
-.nameList{
-    height: 100%;
+.nameList , .nameList_fav{
     overflow: scroll;
-    flex: 1; 
     overflow-y: auto; 
     margin-bottom: 15px;
     border-radius: 16px;
+    min-height: 0;
 }
-
+.nameList {
+    flex: 1;
+}
+.nameList_fav{
+    flex: 0 0 auto;
+    max-height: 30%;
+}
+.nameList_fav .list-group-item{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.nameList_fav::-webkit-scrollbar {
+    width: 6px;  /* 스크롤바 두께를 아주 얇게 조절 */
+}
+.nameList_fav .list-group-item:hover {
+    background-color: #f1f3f5;
+    cursor: pointer; 
+    transform: translateX(3px);
+}
 .body_container{
     height:80vh;
     padding : 10px 10px;
@@ -246,7 +264,10 @@ body {
     background-color: #FFFFFF;
     color:black;
 }
-
+.fav_guideLine{
+    margin: 0;
+    padding : 0;
+}
 /* 안내 문구 깜빡임 효과 */
 @keyframes blink {
     0% { opacity: 0.3; }
