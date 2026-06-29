@@ -319,7 +319,6 @@ function Trail() {
                         if (data && data.nav) {
                             setShowWebsite(!showWebsite);
 
-                            // ⚡ [타이밍 버그 진압]: 박스가 완전히 렌더링될 시간 0.1초를 벌어준다!
                             setTimeout(() => {
                                 navRef.current?.scrollIntoView({
                                     behavior: 'smooth',
