@@ -4,7 +4,7 @@ import { MapPin, Sparkles, Ruler, ParkingCircle, Clock, ThumbsUp, ThumbsDown, Al
 import './Trail.css';
 import parksData from '../data/parksData.js';
 import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 function Trail() {
     const { id } = useParams();
@@ -26,6 +26,7 @@ function Trail() {
     const [ cLat, setCLat ] = useState(null);
     const [ cLng, setCLng ] = useState(null);
     const [ navUrl, setNavUrl ] = useState("");
+    const navRef = useRef(null);
     useEffect(() => {
         const trail = parksData.find((item) => item.id == id);
 
@@ -155,6 +156,8 @@ function Trail() {
                 alert('링크 복사에 실패하였습니다! 다시 시도해주세요!')
             })
     }
+
+
     return (
         <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -218,7 +221,7 @@ function Trail() {
                                 ▶ 추천 플레이리스트(유튜브)
                             </button>
                         </div>
-                        <div style={{ textAlign: 'center', cursor: 'pointer', marginBottom:'8px' }} onClick={() => {
+                        <div style={{ textAlign: 'center', cursor: 'pointer', marginBottom: '8px' }} onClick={() => {
                             setShowNotice(!showNotice)
                         }}><AlertTriangle size={14} />주의 사항<AlertTriangle size={14} />
                             <span>{showNotice ? '▲' : '▼'}</span>
@@ -309,11 +312,21 @@ function Trail() {
                         </div>
                     </div>
                 </div>
+
                 <button
                     className="nav-button"
                     onClick={() => {
                         if (data && data.nav) {
-                            setShowWebsite(!showWebsite)
+                            setShowWebsite(!showWebsite);
+
+                            // ⚡ [타이밍 버그 진압]: 박스가 완전히 렌더링될 시간 0.1초를 벌어준다!
+                            setTimeout(() => {
+                                navRef.current?.scrollIntoView({
+                                    behavior: 'smooth',
+                                    block: 'start'
+                                });
+                            }, 300);
+
                         } else {
                             alert("등록된 사이트 링크가 없습니다!");
                         }
@@ -322,26 +335,31 @@ function Trail() {
                     네비게이션
                 </button>
 
-                {showWebsite && data.nav && (
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        style={{ marginTop: '40px', width: '100%', borderRadius: '16px', overflow: 'hidden', border: '1px solid #e2e8f0', boxShadow: '0 10px 30px rgba(0,0,0,0.08)' }}
-                    >
-                        <div style={{ background: '#e8f5e9', padding: '10px 20px', textAlign: 'left', fontWeight: '600', color: '#2e7d32', fontSize: '14px', borderBottom: '1px solid #dcfce7' }}>
-                            {data.name}
-                        </div>
-                        <iframe
-                            src={navUrl}
-                            title={`${data.name} 웹사이트`}
-                            style={{ width: '100%', height: '600px', border: 'none', backgroundColor: '#white' }}
-                        />
-                    </motion.div>
-                )}
-            </div>
-        </motion.div>
 
+                <div ref={navRef} style={{ width: '100%' }}>
+
+                    {showWebsite && data.nav && (
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            style={{ marginTop: '40px', width: '100%', borderRadius: '16px', overflow: 'hidden', border: '1px solid #e2e8f0', boxShadow: '0 10px 30px rgba(0,0,0,0.08)' }}
+                        >
+                            <div style={{ background: '#e8f5e9', padding: '10px 20px', textAlign: 'left', fontWeight: '600', color: '#2e7d32', fontSize: '14px', borderBottom: '1px solid #dcfce7' }}>
+                                {data.name}
+                            </div>
+                            <iframe
+                                src={navUrl}
+                                title={`${data.name} 웹사이트`}
+                                style={{ width: '100%', height: '600px', border: 'none', backgroundColor: 'white' }}
+                            />
+                        </motion.div>
+                    )}
+                </div>
+            </div>
+
+        </motion.div>
     );
+
 }
 
 export default Trail;
