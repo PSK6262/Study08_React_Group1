@@ -96,6 +96,7 @@
     border: 1px solid #e2e8f0;
     padding: 7px;        
     text-align: left;
+    background: #dcfce7;
 }
 
 .description *{
@@ -103,7 +104,7 @@
 }
 
 .description p{
-    font-size : 20px;
+    font-size : 18px;
 }
 
 .dnlcl {
