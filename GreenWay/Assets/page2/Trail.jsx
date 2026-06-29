@@ -145,31 +145,31 @@ function Trail() {
         setInputText("");
     }
 
-        const shareLink = () => {
-            const currentUrl = window.location.href;
-            navigator.clipboard.writeText(currentUrl)
-                .then(()=>{
-                    alert('링크가 복사되었습니다!')
-                })
-                .catch(()=>{
-                    alert('링크 복사에 실패하였습니다! 다시 시도해주세요!')
-                })
-        }
+    const shareLink = () => {
+        const currentUrl = window.location.href;
+        navigator.clipboard.writeText(currentUrl)
+            .then(() => {
+                alert('링크가 복사되었습니다!')
+            })
+            .catch(() => {
+                alert('링크 복사에 실패하였습니다! 다시 시도해주세요!')
+            })
+    }
     return (
         <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.5 }}
-            style={{ width: '100%', minHeight: '100vh', backgroundColor: '#f4f6f8', padding: '40px 0' }}
+            style={{ width: '100%', minHeight: '100vh', backgroundColor: '#f4f6f8', padding: '10px 0' }}
         >
             <div className="t-container">
                 <div className="t-detail-header">
                     <div className="t-name">
-                        <h2>{data.name}</h2>
+                        <h3>{data.name}</h3>
                         <span className="tag">{data.type}</span>
                     </div>
-                    <div className="t-address" style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '8px' }}>
+                    <div className="t-address" style={{ display: 'flex', alignItems: 'center', marginTop: '8px' }}>
                         <MapPin size={20} color='orange' />
                         <span>{data.address}</span>
                     </div>
@@ -185,42 +185,48 @@ function Trail() {
                         </div>
 
                         <div className="vote-bar">
-                            <span style={{ fontSize: '20px', fontWeight: '700', color: '#334155' }}>
+                            <span style={{ fontSize: '16px', fontWeight: '700', color: '#334155' }}>
                                 😆 이 산책로, 어떠셨나요?
                             </span>
 
-                            <div style={{ display: 'flex', gap: '16px', alignItems: 'center', marginLeft: '50px', marginTop: '15px' }}>
+                            <div style={{ display: 'flex', gap: '16px', alignItems: 'center', marginLeft: '50px', marginTop: '10px' }}>
                                 <button
                                     onClick={() => setUpCount(upCount + 1)}
                                     style={{ display: 'flex', alignItems: 'center', gap: '6px', background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '6px 14px', borderRadius: '20px', cursor: 'pointer' }}
                                 >
-                                    <ThumbsUp size={20} color='#16a34a' fill='#16a34a' />
-                                    <strong style={{ color: '#16a34a', fontSize: '13.5px' }}>{upCount}</strong>
+                                    <ThumbsUp size={18} color='#16a34a' fill='#16a34a' />
+                                    <strong style={{ color: '#16a34a', fontSize: '13px' }}>{upCount}</strong>
                                 </button>
                                 <button
                                     onClick={() => setDownCount(downCount + 1)}
                                     style={{ display: 'flex', alignItems: 'center', gap: '6px', background: '#fef2f2', border: '1px solid #fecaca', padding: '6px 14px', borderRadius: '20px', cursor: 'pointer' }}
                                 >
-                                    <ThumbsDown size={20} color='#dc2626' fill='#dc2626' />
-                                    <strong style={{ color: '#dc2626', fontSize: '13.5px' }}>{downCount}</strong>
+                                    <ThumbsDown size={18} color='#dc2626' fill='#dc2626' />
+                                    <strong style={{ color: '#dc2626', fontSize: '13px' }}>{downCount}</strong>
                                 </button>
-                                <button className="share-btn" onClick={shareLink} 
-                                style={{ backgroundColor: '#f1f5f9', border: 'none', marginLeft: '25px', borderRadius: '12px', width: '200px' }}>
+                                <button className="share-btn" onClick={shareLink}
+                                    style={{ backgroundColor: '#f1f5f9', border: 'none', marginLeft: '25px', borderRadius: '12px', width: '200px' }}>
                                     🖨️ 공유하기
                                 </button>
                             </div>
-
+                            <button
+                                className="music-button"
+                                onClick={() => {
+                                    window.open("https://www.youtube.com/watch?v=7E74fH0Xoew&list=PLci6UGec4X3g");
+                                }}
+                            >
+                                ▶ 추천 플레이리스트(유튜브)
+                            </button>
                         </div>
-                        <div style={{ textAlign: 'center', cursor: 'pointer' }} onClick={() => {
+                        <div style={{ textAlign: 'center', cursor: 'pointer', marginBottom:'8px' }} onClick={() => {
                             setShowNotice(!showNotice)
                         }}><AlertTriangle size={14} />주의 사항<AlertTriangle size={14} />
                             <span>{showNotice ? '▲' : '▼'}</span>
                         </div>
                         {showNotice && (
                             <div style={{
-                                marginTop: '14px',
                                 textAlign: 'left',
-                                padding: '16px',
+                                padding: '10px',
                                 background: '#f8fafc',
                                 borderRadius: '12px',
                                 border: '1px solid #e2e8f0'
@@ -249,42 +255,34 @@ function Trail() {
                             </div>
 
                             <div className="dnlcl">
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}>
-                                    <Ruler size={20} className="d-flex align-items-center gap-5" color='#4A5D4E' />
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '10px' }}>
+                                    <Ruler size={18} color='#4A5D4E' />
                                     <span><div className='m-name'>산책로 길이 </div> {data.distance}m</span>
                                 </div>
 
-                                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '4px', flexDirection: 'column', marginBottom: '14px' }}>
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-                                        <ParkingCircle className="d-flex align-items-center gap-2" size={20} color='blue' />
+                                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '4px', flexDirection: 'column', marginBottom: '10px' }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+                                        <ParkingCircle size={18} color='blue' />
                                         <div className="m-name">편의 시설</div>
                                     </div>
                                     <div style={{ paddingLeft: '26px', width: '100%' }}>
                                         {renderConvenience(data.convenience)}
                                     </div>
                                 </div>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                    <Clock className="d-flex align-items-center gap-2" size={20} color='green' />
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                                    <Clock size={18} color='green' />
                                     <span><div className='m-name'>산책 시간</div> {data.time}분</span>
                                 </div>
 
-                                <button
-                                    className="music-button"
-                                    onClick={() => {
-                                        window.open("https://www.youtube.com/watch?v=7E74fH0Xoew&list=PLci6UGec4X3g");
-                                    }}
-                                >
-                                    ▶ 추천 플레이리스트(유튜브)
-                                </button>
-                                <div className="comment-section" style={{ flex: '0 0 45%', borderRadius: '16px', padding: '24px', border: '1px solid #e2e8f0', boxShadow: 'rgba(0,0,0,0.05)', marginTop: '25px', borderColor: '#A1887F', transition: 'all 0.3s ease' }}>
-                                    <h5 style={{ fontWeight: '700', marginBottom: '16px', color: '#111' }}>🖍 한줄평 후기 ({comments.length})</h5>
+                                <div className="comment-section" style={{ flex: '0 0 45%', borderRadius: '16px', padding: '18px', border: '1px solid #e2e8f0', boxShadow: 'rgba(0,0,0,0.05)', marginTop: '12px', borderColor: '#A1887F', transition: 'all 0.3s ease' }}>
+                                    <h6 style={{ fontWeight: '700', color: '#111' }}>🖍 한줄평 후기 ({comments.length})</h6>
 
-                                    <div className="comment-list-container" style={{ maxHeight: '200px', overflowY: 'auto', marginBottom: '16px', paddingRight: '4px' }}>
+                                    <div className="comment-list-container" style={{ maxHeight: '100px', overflowY: 'auto', paddingRight: '4px' }}>
                                         {comments.length === 0 ? (
-                                            <p style={{ color: '#aaa', fontSize: '14px', textAlign: 'center', padding: '20px 0' }}>첫 번째 후기를 남겨보세요!</p>
+                                            <p style={{ color: '#aaa', fontSize: '12px', textAlign: 'center', padding: '20px 0' }}>첫 번째 후기를 남겨보세요!</p>
                                         ) : (
                                             comments.map((comment) => (
-                                                <div key={comment.id} style={{ background: '#f8fafc', padding: '12px 16px', borderRadius: '8px', border: '1px solid #f1f5f9', fontSize: '14px', color: '#334155', textAlign: 'left' }}>
+                                                <div key={comment.id} style={{ background: '#f8fafc', padding: '10px 10px', borderRadius: '8px', border: '1px solid #f1f5f9', fontSize: '14px', color: '#334155', textAlign: 'left' }}>
                                                     <span style={{ fontWeight: 'bold', color: 'green', marginRight: '8px' }}>walk-friend</span>
                                                     {comment.text}
                                                 </div>
@@ -297,7 +295,7 @@ function Trail() {
                                             value={inputText}
                                             onChange={(e) => setInputText(e.target.value)}
                                             placeholder="산책로에 대한 따뜻한 후기를 익명으로 남겨주세요."
-                                            style={{ flex: 1, height: '54px', padding: '10px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '14px', resize: 'none', outline: 'none', transition: 'all 0.2s ease-in-out' }}
+                                            style={{ flex: 1, height: '40px', padding: '10px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '12px', resize: 'none', outline: 'none', transition: 'all 0.2s ease-in-out' }}
                                         />
                                         <button
                                             onClick={addComments}
