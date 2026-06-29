@@ -1,6 +1,7 @@
 import { useEffect , useState , useRef } from "react";
 import { useNavigate } from 'react-router'
 import { ListGroup , Form } from 'react-bootstrap';
+import { Rnd } from 'react-rnd';
 import "./Main.css";
 import '../page2/Trail'
 import { AlignRight, Bold } from "lucide-react";
@@ -18,6 +19,7 @@ function Main({Data,showIntro,setShowIntro}){
     const markerRef = useRef(null);
     const currentPlaceMarkerRef = useRef(null);
     const infoWindowRef = useRef(null);
+    const mapContainerRef = useRef(null);
     const navigate = useNavigate();
     
     const [currentLat, setCurrentLat] = useState(null);
@@ -71,8 +73,8 @@ function Main({Data,showIntro,setShowIntro}){
         if (!window.naver) return;
         const mapOptions = {
             center: new window.naver.maps.LatLng(
-                Data[0].lat,
-                Data[0].lng
+                Data?.[0]?.lat,
+                Data?.[0]?.lng
             ),
             zoom: 15
         };
@@ -86,8 +88,8 @@ function Main({Data,showIntro,setShowIntro}){
         if(currentLat && currentLng && selectedPlace){
             const selected_lat = selectedPlace.lat;
             const selected_lng = selectedPlace.lng;
-            const Departure = new naver.maps.LatLng(currentLat,currentLng);
-            const Destination = new naver.maps.LatLng(selected_lat,selected_lng);
+            const Departure = new window.naver.maps.LatLng(currentLat,currentLng);
+            const Destination = new window.naver.maps.LatLng(selected_lat,selected_lng);
             setDistance(mapRef.current.getProjection().getDistance(Departure,Destination));
         }
     },[selectedPlace,currentLat,currentLng])
@@ -169,7 +171,7 @@ function Main({Data,showIntro,setShowIntro}){
                 </div>
             </div>
             <div className="body_container">
-                <div className="maps">
+                <div className="maps" ref={mapContainerRef}>
                     <div className="map-placeholder">
                         <div id="map"></div>
                     </div>
@@ -183,34 +185,34 @@ function Main({Data,showIntro,setShowIntro}){
                             value={searchText}
                             onChange={(e)=>setSearchText(e.target.value)}
                         />
-                        <p className="searchData">검색 결과 {filteredData.length + fav.length}개</p>
+                        <p className="searchData">즐겨찾기 {fav.length}개 , 검색 결과 {filteredData.length}개</p>
                     </div>
                     {/* 검색하면 아래 리스트에서 해당하는것만 나오게. */}
-                    <ListGroup className="nameList">
+                    <ListGroup className="nameList_fav">
                     {
                         fav.length>0 && fav.map((item)=>{
                             return(
-                                <>
                                     <ListGroup.Item
                                         key={item.id}
                                         variant="light"
                                         onClick={() => moveMap(item)}
                                         style={{ cursor: "pointer" }}
                                         className={item.id === selectedPlaceId ? "selectedPlace":""}
-                                    >
-                                    <button className="favorite_btn" onClick={(e)=>{
-                                        e.stopPropagation();
-                                        if(localStorage.getItem(`favorite_${item.id}`) === 'true') 
-                                            localStorage.removeItem(`favorite_${item.id}`);
-                                        else localStorage.setItem(`favorite_${item.id}`,'true');
-                                        changeFav();
-                                    }}>★</button>
-                                        {item.name}
+                                        >
+                                        <button className="favorite_btn" onClick={(e)=>{
+                                            e.stopPropagation();
+                                            if(localStorage.getItem(`favorite_${item.id}`) === 'true') 
+                                                localStorage.removeItem(`favorite_${item.id}`);
+                                            else localStorage.setItem(`favorite_${item.id}`,'true');
+                                            changeFav();
+                                        }}>★</button>
+                                            {item.name}
                                     </ListGroup.Item>
-                                </>
                             )
                         })
                     }
+                    </ListGroup>
+                    <ListGroup className="nameList">
                     {
                         // 만약 길이가 0 이다 -> 아무것도 없다.
                         filteredData.length === 0 
@@ -221,8 +223,7 @@ function Main({Data,showIntro,setShowIntro}){
                         )
                         :
                         (
-                            filteredData.map((item,index) => ( // return
-                                <>
+                            filteredData.map((item) => ( // return
                                     <ListGroup.Item
                                         key={item.id}
                                         variant="light"
@@ -230,7 +231,7 @@ function Main({Data,showIntro,setShowIntro}){
                                         style={{ cursor: "pointer" }}
                                         className={item.id === selectedPlaceId ? "selectedPlace":""}
                                     >
-                                    <button className="non_favorite_btn" key={item.id} onClick={(e)=>{
+                                    <button className="non_favorite_btn" onClick={(e)=>{
                                         e.stopPropagation();
                                         if(localStorage.getItem(`favorite_${item.id}`) === 'true') {
                                             localStorage.removeItem(`favorite_${item.id}`);
@@ -242,7 +243,6 @@ function Main({Data,showIntro,setShowIntro}){
                                     }}>☆</button>
                                         {item.name}
                                     </ListGroup.Item>
-                                </>
                             ))
                         )
                     }
@@ -275,37 +275,39 @@ function Main({Data,showIntro,setShowIntro}){
                 </div>
                 {
                     selectedPlace && 
-                    <div key={selectedPlace.id} className={`showSelectedPlace`} style={{ textAlign: "center" }}>
-                        <p><span className="titlePlace">{selectedPlace.name}</span> <span><button className="btn_close" onClick={()=>{
-                            setSelectedPlace(null);   
-                            setSelectedPlaceId(null);             
-                        }}>X</button></span></p>
-                        <p>
-                            <img src={selectedPlace.image} className="selectedPlaceImg" alt={selectedPlace.name}/>
-                        </p>
-                        <div className="infoArea">
-                        {
-                            selectedPlace.distance !== 0 &&
-                            <span style={{fontSize:'18px'}}>총 길이 {Number(selectedPlace.distance) / 1000} KM ,</span>
-                        }
-                        {
-                            selectedPlace.time !== 0 &&
-                            <span style={{fontSize:'18px'}}> 약 {selectedPlace.time}분 소요</span>
-                        }
-                        {
-                            <p style={{color:'#777'}}>{selectedPlace.address}</p>
-                        }
-                        {
-                            // 일단은 2개만 출력
-                            <p>태그 : {selectedPlace.tags[0]}, {selectedPlace.tags[1]}</p>
-                        }
-                        {
-                            showCurrentPlace &&
-                            <p>현재 위치로부터 약 {Math.floor(distance/100)/10}KM</p>
-                        }
+                    <Rnd bounds={mapContainerRef.current} enableResizing={"false"} default={{x:10,y:350}}>
+                        <div key={selectedPlace.id} className={`showSelectedPlace`} style={{ textAlign: "center" }}>
+                            <p><span className="titlePlace">{selectedPlace.name}</span> <span><button className="btn_close" onClick={()=>{
+                                setSelectedPlace(null);   
+                                setSelectedPlaceId(null);             
+                            }}>X</button></span></p>
+                            <p>
+                                <img src={selectedPlace.image} className="selectedPlaceImg" alt={selectedPlace.name} draggable={false}/>
+                            </p>
+                            <div className="infoArea">
+                            {
+                                selectedPlace.distance !== 0 &&
+                                <span style={{fontSize:'18px'}}>총 길이 {Number(selectedPlace.distance) / 1000} KM ,</span>
+                            }
+                            {
+                                selectedPlace.time !== 0 &&
+                                <span style={{fontSize:'18px'}}> 약 {selectedPlace.time}분 소요</span>
+                            }
+                            {
+                                <p style={{color:'#777'}}>{selectedPlace.address}</p>
+                            }
+                            {
+                                // 일단은 2개만 출력
+                                <p>태그 : {selectedPlace.tags[0]}, {selectedPlace.tags[1]}</p>
+                            }
+                            {
+                                showCurrentPlace &&
+                                <p>현재 위치로부터 약 {Math.floor(distance/100)/10}KM</p>
+                            }
+                            </div>
+                            <button id="detail-btn">상세 보기</button>
                         </div>
-                        <button id="detail-btn">상세 보기</button>
-                    </div>
+                    </Rnd>
                 }
             </div>
             <div className="global-footer">
