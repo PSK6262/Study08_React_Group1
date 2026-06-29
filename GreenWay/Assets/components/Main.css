@@ -234,8 +234,19 @@ body {
     margin-right: auto;
     display: inline-flex;
     border:none;
+    border-radius: 20px;
     background-color: #FFFFFF;
+    color:green;
 }
+.non_favorite_btn{
+    margin-right: auto;
+    display: inline-flex;
+    border:none;
+    border-radius: 20px;
+    background-color: #FFFFFF;
+    color:black;
+}
+
 /* 안내 문구 깜빡임 효과 */
 @keyframes blink {
     0% { opacity: 0.3; }

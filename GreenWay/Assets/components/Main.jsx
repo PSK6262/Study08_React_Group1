@@ -26,10 +26,24 @@ function Main({Data,showIntro,setShowIntro}){
     const [location, setLocation] = useState(null);
     const [distance, setDistance] = useState(0);
     // const [fav , setFav] = useState(false);
+    const [fav, setFav] = useState([]);
+
+
+    const changeFav = () =>{
+        const isFavorite = Data.filter((item,index)=>{
+            if(localStorage.getItem(`favorite_${item.id}`) === "true") return true;
+            return false;
+        })
+        setFav(isFavorite);
+    }
+
+    useEffect(()=>{
+        changeFav();
+    },[Data])
 
     const filteredData = Data.filter((item) => { // 오른쪽 Group에서 보여줄 것, true인것만 표현
-        const isFavorite = localStorage.getItem(`favorites_${item.id}`);
-        if(isFavorite) return false;
+        const Favorite = localStorage.getItem(`favorite_${item.id}`);
+        if(Favorite) return false;
         if (hidePark && item.type === "공원") return false;
         if (hideTrail && item.type === "산책로") return false;
         if (searchText && !item.name.toLowerCase().includes(searchText.toLowerCase())){ 
@@ -41,8 +55,6 @@ function Main({Data,showIntro,setShowIntro}){
     //     const isFavorite = localStorage.getItem(`favorites_${item.id}`);
     //     return isFavorite;
     // });
-    
-
     useEffect(() => {
         if(showCurrentPlace){
             getBrowserLocation();
@@ -171,12 +183,13 @@ function Main({Data,showIntro,setShowIntro}){
                             value={searchText}
                             onChange={(e)=>setSearchText(e.target.value)}
                         />
-                        <p className="searchData">검색 결과 {filteredData.length}개</p>
+                        <p className="searchData">검색 결과 {filteredData.length + fav.length}개</p>
                     </div>
                     {/* 검색하면 아래 리스트에서 해당하는것만 나오게. */}
                     <ListGroup className="nameList">
-                    {/* {
-                        favoriteData.length>0 && favoriteData.map((item)=>{
+                    {
+                        fav.length>0 && fav.map((item)=>{
+                            return(
                                 <>
                                     <ListGroup.Item
                                         key={item.id}
@@ -185,20 +198,19 @@ function Main({Data,showIntro,setShowIntro}){
                                         style={{ cursor: "pointer" }}
                                         className={item.id === selectedPlaceId ? "selectedPlace":""}
                                     >
-                                    <button className="favorite_btn" key={item.id} onClick={(e)=>{
+                                    <button className="favorite_btn" onClick={(e)=>{
                                         e.stopPropagation();
                                         if(localStorage.getItem(`favorite_${item.id}`) === 'true') 
                                             localStorage.removeItem(`favorite_${item.id}`);
                                         else localStorage.setItem(`favorite_${item.id}`,'true');
+                                        changeFav();
                                     }}>★</button>
                                         {item.name}
                                     </ListGroup.Item>
                                 </>
-
+                            )
                         })
                     }
- */}
-
                     {
                         // 만약 길이가 0 이다 -> 아무것도 없다.
                         filteredData.length === 0 
@@ -209,7 +221,7 @@ function Main({Data,showIntro,setShowIntro}){
                         )
                         :
                         (
-                            filteredData.map((item) => ( // return
+                            filteredData.map((item,index) => ( // return
                                 <>
                                     <ListGroup.Item
                                         key={item.id}
@@ -218,11 +230,15 @@ function Main({Data,showIntro,setShowIntro}){
                                         style={{ cursor: "pointer" }}
                                         className={item.id === selectedPlaceId ? "selectedPlace":""}
                                     >
-                                    <button className="favorite_btn" key={item.id} onClick={(e)=>{
+                                    <button className="non_favorite_btn" key={item.id} onClick={(e)=>{
                                         e.stopPropagation();
-                                        if(localStorage.getItem(`favorite_${item.id}`) === 'true') 
+                                        if(localStorage.getItem(`favorite_${item.id}`) === 'true') {
                                             localStorage.removeItem(`favorite_${item.id}`);
-                                        else localStorage.setItem(`favorite_${item.id}`,'true');
+                                        } 
+                                        else {
+                                            localStorage.setItem(`favorite_${item.id}`,'true');
+                                        }
+                                        changeFav();
                                     }}>☆</button>
                                         {item.name}
                                     </ListGroup.Item>
