@@ -153,10 +153,11 @@ function Park3() {
               <button
                 className="saveclick"
                 onClick={handleSaveClick}
-                style={{ color: savebutton ? "gold" : "gray" }}>
+                style={{ color: savebutton ? "gold" : "gray" }}
+                title="저장">
                 ★
               </button>
-              <button className="share" onClick={handleShareClick}>
+              <button className="share" onClick={handleShareClick} title="공유">
                 ↪
               </button>
             </div>
@@ -177,7 +178,7 @@ function Park3() {
                     });
                   }, 300);
                 } else {
-                  alert("등록된 사이트 링크가 없습니다!");
+                  alert("등록된 사이트 링크가 없습니다");
                 }
               }}>
               길찾기
