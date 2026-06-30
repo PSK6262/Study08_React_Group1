@@ -13,11 +13,35 @@
     margin: 0 !important;
     padding-bottom: 0.25em !important;
     padding-top:0.25em !important;
+    max-width: 100% !important;
 }
-
+#navlink{
+    display:flex;
+    align-items: center;
+}
+#navlink:hover{
+    transform: scale(1.025) !important;
+    transition: 0.2s;
+}
+.me-auto{
+    display:flex;
+    align-items: center;
+    width: 100%;
+}
+.weather-wrapper {
+    display: flex;
+    align-items: center;
+    margin-left:auto;
+    margin-right:2%;
+}
 @media screen and (max-width: 1023px) {
     .navbar_main{
         width:100%;
+    }
+}
+@media screen and (max-width: 767px){
+    .weather-wrapper{
+        display:none;
     }
 }
 @media screen and (max-width: 479px){
