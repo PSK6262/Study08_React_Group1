@@ -196,13 +196,12 @@ textarea:focus{
 
 .description:hover{
     background-color: #98edb7;
-    box-shadow: 0 0 10px rgba(44, 185, 101, 0.6);
+    box-shadow: 0 0 10px rgba(44, 185, 101, 0.3);
     transform: translateY(-2px); 
 }
 
-.img:hover{
-    width: 550px;
-    height: 550px;
+.img:active{
+    transform: scale(1.25);
 }
 
 .facility-badge:hover {
