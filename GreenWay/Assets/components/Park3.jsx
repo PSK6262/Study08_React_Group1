@@ -100,7 +100,7 @@ function Park3() {
     navigator.clipboard
       .writeText(currentUrl)
       .then(() => {
-        alert("URL이 복사되었습니다.");
+        alert("링크가 복사되었습니다.");
       })
       .catch((err) => {
         console.error("복사 실패:", err);
