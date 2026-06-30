@@ -209,15 +209,16 @@ function Trail() {
                             길찾기
                         </button>
                         <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <button onClick={() =>
+                            <button className="star-btn"
+                                onClick={() =>
                                     setStar(!star)}
-                                    style={{ color: star ? "gold" : "gray", border: 'none', fontSize: '24px', textAlign:'right' }}>
-                                    ★
-                                </button>
-                                <button className="share-btn" onClick={shareLink}
-                                    style={{ backgroundColor: '#f1f5f9', border: 'none', borderRadius: '12px'}}>
-                                    ↪
-                                </button>
+                                style={{ color: star ? "gold" : "gray", border: 'none', fontSize: '24px', textAlign: 'right', backgroundColor: 'white' }}>
+                                ★
+                            </button>
+                            <button className="share-btn" onClick={shareLink}
+                                style={{ backgroundColor: '#f1f5f9', border: 'none', borderRadius: '12px' }}>
+                                ↪
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -230,7 +231,7 @@ function Trail() {
                         </div>
 
                         <div className="vote-bar">
-                            <span style={{ fontSize: '20px', fontWeight: '700', color: '#334155', marginLeft : '100px' }}>
+                            <span style={{ fontSize: '20px', fontWeight: '700', color: '#334155', marginLeft: '100px' }}>
                                 😆 이 산책로, 어떠셨나요?
                             </span>
 
