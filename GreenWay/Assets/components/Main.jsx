@@ -1,7 +1,6 @@
 import { useEffect , useState , useRef } from "react";
 import { useNavigate } from 'react-router'
 import { ListGroup , Form } from 'react-bootstrap';
-import { AlignRight, Bold } from "lucide-react";
 import { Rnd } from 'react-rnd';
 import "./Main.css";
 import ListMain from "./ListMain.jsx";
@@ -13,16 +12,12 @@ function Main({Data,showIntro,setShowIntro}){
     const [showCurrentPlace, setShowCurrentPlace] = useState(false); // 현재 위치 보이기
     const [selectedPlaceId, setSelectedPlaceId] = useState(null); // 현재 클릭중인 장소 표시
     const [selectedPlace, setSelectedPlace] = useState(null);
-    const [selectedType, setSelectedType] = useState(null);
     const mapRef = useRef(null);
     const markerRef = useRef(null);
     const currentPlaceMarkerRef = useRef(null);
-    const infoWindowRef = useRef(null);
     const mapContainerRef = useRef(null);
     const [currentLat, setCurrentLat] = useState(null);
     const [currentLng, setCurrentLng] = useState(null);
-    const [destination, setDestination] = useState(null); 
-    const [location, setLocation] = useState(null);
     const [distance, setDistance] = useState(0);
     const [fav, setFav] = useState([]);
     const navigate = useNavigate();
@@ -55,43 +50,27 @@ function Main({Data,showIntro,setShowIntro}){
             place.lat,
             place.lng
         )
-        setLocation(moveLocation);
         setSelectedPlaceId(place.id); // 그룹멤버 클릭시 , 클릭 되었음을 보여줌
         setSelectedPlace(place); // 멤버 클릭시 그 장소를 저장함
-        if(moveLocation !== null) {
-                mapRef.current.panTo(moveLocation); // 천천히 이동
-                mapRef.current.setZoom(15);
-                
-                // 기존 마커 지우기
-                if (markerRef.current) {
-                    markerRef.current.setMap(null);
-                }
-                
-                // 새 마커 만들기
-                markerRef.current = new window.naver.maps.Marker({
-                    position: moveLocation,
-                    map: mapRef.current
-                });
-                
-                // 좋은 구조는 아님 
-                setTimeout(() => {
-                const btn = document.getElementById("detail-btn");
-                if (!btn) return;
-                btn.onclick = () => {
-                    if (place.type === "공원") {
-                        navigate(`/park/${place.id}`, {
-                            state : {cLat : currentLat , cLng : currentLng , dist : distance}
-                        });
-                    }
-                    else {
-                        navigate(`/trail/${place.id}`, {
-                            state : {cLat : currentLat , cLng : currentLng , dist : distance}
-                        });
-                    }
-                };
-            }, 100);
-        }
-    };   
+        mapRef.current.panTo(moveLocation); // 천천히 이동
+        mapRef.current.setZoom(15);
+        
+        // 기존 마커 지우기
+        markerRef.current?.setMap(null);
+        
+        // 새 마커 만들기
+        markerRef.current = new window.naver.maps.Marker({
+        position: moveLocation,
+            map: mapRef.current
+        });
+    };
+
+    // 상세보기 버튼 누르면 상세 페이지 이동
+    const moveDetail = () => {
+        if (!selectedPlace) return;
+        const path = selectedPlace.type === "공원" ? `/park/${selectedPlace.id}` : `/trail/${selectedPlace.id}`;
+        navigate(path,{state : {cLat : currentLat , cLng : currentLng , dist : distance}});
+    }
 
     // Fav 버튼 이벤트
     useEffect(()=>{
@@ -104,25 +83,18 @@ function Main({Data,showIntro,setShowIntro}){
             getBrowserLocation();
         } 
         else {
-            if(currentPlaceMarkerRef.current !== null){
-                currentPlaceMarkerRef.current.setMap(null);                  
-            }
+            currentPlaceMarkerRef.current?.setMap(null);                  
         }
-    },[showCurrentPlace,currentLat,currentLng])
+    },[showCurrentPlace])
 
     // 네이버 지도 표시 (API 사용)
     useEffect(() => {
         if (!window.naver) return;
-        const mapOptions = {
+        mapRef.current = new window.naver.maps.Map("map", {
             center: new window.naver.maps.LatLng(
                 Data?.[0]?.lat,
                 Data?.[0]?.lng
-            ),
-            zoom: 15
-        };
-            mapRef.current = new window.naver.maps.Map(
-            "map",
-            mapOptions
+            ), zoom: 15 }
         );
     }, []); 
 
@@ -159,10 +131,10 @@ function Main({Data,showIntro,setShowIntro}){
             navigator.geolocation.getCurrentPosition((position)=>{
                     const c_lat = position.coords.latitude;
                     const c_lng = position.coords.longitude;
-                    if(c_lat && c_lng){
+                    if(c_lat != null && c_lng != null){
                         setCurrentLat(c_lat);    
                         setCurrentLng(c_lng);
-                        if(currentPlaceMarkerRef.current !== null) currentPlaceMarkerRef.current.setMap(null);
+                        currentPlaceMarkerRef.current?.setMap(null);
                         currentPlaceMarkerRef.current = new window.naver.maps.Marker({
                         position: new window.naver.maps.LatLng(c_lat,c_lng),
                         map: mapRef.current});
@@ -208,32 +180,14 @@ function Main({Data,showIntro,setShowIntro}){
                     <p className="searchData">검색 결과 {filteredData.length}개</p>
                     {/* 검색하면 아래 리스트에서 해당하는것만 나오게. */}
                     <ListGroup className="nameList">
-                        <ListMain list={filteredData} fav={fav} changeFav={changeFav} 
-                            selectedPlaceId={selectedPlaceId} moveMap={moveMap} isfav={false}></ListMain>
+                        <ListMain list={filteredData} changeFav={changeFav} 
+                            selectedPlaceId={selectedPlaceId} moveMap={moveMap} isFav={true}></ListMain>
                     </ListGroup>
                     <p className="searchData">즐겨찾기 {fav.length}개</p>
                     <ListGroup className="nameList_fav">
                     {
-                        fav.length>0 && fav.map((item)=>{
-                            return(
-                                    <ListGroup.Item
-                                        key={item.id}
-                                        variant="light"
-                                        onClick={() => moveMap(item)}
-                                        style={{ cursor: "pointer" }}
-                                        className={item.id === selectedPlaceId ? "selectedPlace":""}
-                                        >
-                                        {item.name}
-                                        <button className="favorite_btn" onClick={(e)=>{
-                                            e.stopPropagation();
-                                            if(localStorage.getItem(`favorite_${item.id}`) === 'true') 
-                                                localStorage.removeItem(`favorite_${item.id}`);
-                                            else localStorage.setItem(`favorite_${item.id}`,'true');
-                                            changeFav();
-                                        }}>★</button>
-                                    </ListGroup.Item>
-                            )
-                        })
+                        fav.length > 0 &&  <ListMain list={fav} changeFav={changeFav}
+                        selectedPlaceId={selectedPlaceId} moveMap={moveMap} isFav={false}/>
                     }
                     </ListGroup>
                     <div className="switch-container-horizontal">
@@ -275,26 +229,24 @@ function Main({Data,showIntro,setShowIntro}){
                             </p>
                             <div className={"infoArea " + (showCurrentPlace && "currentPlaceBtnOn") +" "+ (selectedPlace.type === '산책로' && "currentPlaceTypeTrail")}>
                             {
-                                <p style={{color:'#000000'}}>{selectedPlace.address}</p>
-                            }
-                            {
-                                // 일단은 2개만 출력, 나머지는 상세보기에서
-                                <p>태그 : {selectedPlace.tags[0]}, {selectedPlace.tags[1]}</p>
-                            }
-                            {
-                                selectedPlace.distance !== 0 &&
-                                <span>총 길이 {Number(selectedPlace.distance) / 1000} KM ,</span>
-                            }
-                            {
-                                selectedPlace.time !== 0 &&
-                                <span> 약 {selectedPlace.time}분 소요</span>
-                            }
-                            {
-                                showCurrentPlace &&
-                                <p style={{color:'#777'}}>현재 위치로부터 약 {Math.floor(distance/100)/10}KM</p>
+                                <>
+                                    <p style={{color:'#000000'}}>{selectedPlace.address}</p>
+                                    
+                                    {/* // 일단은 2개만 출력, 나머지는 상세보기에서 */}
+                                    <p>태그 : {selectedPlace.tags[0]}, {selectedPlace.tags[1]}</p>
+                                    
+                                    {selectedPlace.distance !== 0 && 
+                                    <span>총 길이 {Number(selectedPlace.distance) / 1000} KM ,</span>}
+                                    
+                                    {selectedPlace.time !== 0 && 
+                                    <span> 약 {selectedPlace.time}분 소요</span>}
+                                    
+                                    {showCurrentPlace &&
+                                    <p style={{color:'#777'}}>현재 위치로부터 약 {Math.floor(distance/100)/10}KM</p>}
+                                </>
                             }
                             </div>
-                            <button id="detail-btn">상세 보기</button>
+                            <button id="detail-btn" onClick={moveDetail}>상세 보기</button>
                         </div>
                     </Rnd>
                 }

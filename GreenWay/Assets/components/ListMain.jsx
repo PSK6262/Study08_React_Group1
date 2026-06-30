@@ -1,13 +1,13 @@
 import { ListGroup } from "react-bootstrap";
 import "./Main.css";
-function ListMain({list,fav,changeFav,selectedPlaceId,moveMap}){
+function ListMain({list,changeFav,selectedPlaceId,moveMap,isFav}){
     if((list.length === 0 || !list)) return(
         <ListGroup.Item>
             조건에 맞는 결과가 없습니다.
         </ListGroup.Item>
     )
     else return(
-        list.map((item,index) => ( // return
+        list.map((item) => ( // return
             <ListGroup.Item
             key={item.id}
             variant="light"
@@ -16,7 +16,7 @@ function ListMain({list,fav,changeFav,selectedPlaceId,moveMap}){
             className={item.id === selectedPlaceId ? "selectedPlace":""}
             >
             {item.name}
-            <button className="non_favorite_btn" onClick={(e)=>{
+            <button className = {(isFav ? "non_" : "") + "favorite_btn"} onClick={(e)=>{
                 e.stopPropagation();
                 if(localStorage.getItem(`favorite_${item.id}`) === 'true') {
                     localStorage.removeItem(`favorite_${item.id}`);
@@ -25,7 +25,7 @@ function ListMain({list,fav,changeFav,selectedPlaceId,moveMap}){
                     localStorage.setItem(`favorite_${item.id}`,'true');
                 }
                 changeFav();
-                }}>{fav[index] === true ? '★' : '☆'}</button>                                    
+                }}>★</button>                                    
                 </ListGroup.Item>
             ))
     )
