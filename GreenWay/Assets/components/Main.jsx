@@ -72,6 +72,32 @@ function Main({Data,showIntro,setShowIntro}){
         //navigate(path,{state : {cLat : currentLat , cLng : currentLng , dist : distance}});
     }
 
+    // 현재 위치 반환 코드 (HTML5 Geolocation API)
+    // HTML5 Geolocation API는 브라우저 내장이므로 무료.
+    const getBrowserLocation = () => {
+        if(navigator.geolocation){
+            navigator.geolocation.getCurrentPosition((position)=>{
+                    const c_lat = position.coords.latitude;
+                    const c_lng = position.coords.longitude;
+                    if(c_lat != null && c_lng != null){
+                        setCurrentLat(c_lat);    
+                        setCurrentLng(c_lng);
+                        currentPlaceMarkerRef.current?.setMap(null);
+                        currentPlaceMarkerRef.current = new window.naver.maps.Marker({
+                        position: new window.naver.maps.LatLng(c_lat,c_lng),
+                        map: mapRef.current});
+                    }
+                    mapRef.current.panTo(new window.naver.maps.LatLng(c_lat,c_lng));
+                },
+                (error)=>{
+                    alert(`위치 권한 거부 또는 오류 : `, error);
+                }
+            );
+        } else {
+            alert(`이 브라우저는 위치 정보를 지원하지 않습니다.`);
+        }
+    }
+
     // Fav 버튼 이벤트
     useEffect(()=>{
         changeFav();
@@ -122,31 +148,6 @@ function Main({Data,showIntro,setShowIntro}){
             window.removeEventListener("keydown", handleKeyDown);
         };
     }, [selectedPlace]);
-
-    // 현재 위치 반환 코드 (HTML5 Geolocation API)
-    // HTML5 Geolocation API는 브라우저 내장이므로 무료.
-    const getBrowserLocation = () => {
-        if(navigator.geolocation){
-            navigator.geolocation.getCurrentPosition((position)=>{
-                    const c_lat = position.coords.latitude;
-                    const c_lng = position.coords.longitude;
-                    if(c_lat != null && c_lng != null){
-                        setCurrentLat(c_lat);    
-                        setCurrentLng(c_lng);
-                        currentPlaceMarkerRef.current?.setMap(null);
-                        currentPlaceMarkerRef.current = new window.naver.maps.Marker({
-                        position: new window.naver.maps.LatLng(c_lat,c_lng),
-                        map: mapRef.current});
-                    }
-                },
-                (error)=>{
-                    alert(`위치 권한 거부 또는 오류 : `, error);
-                }
-            );
-        } else {
-            alert(`이 브라우저는 위치 정보를 지원하지 않습니다.`);
-        }
-    }
     return(
         <>
             <div className={'main-bg '+ (showIntro ? 'start' : 'fade-out')} 
