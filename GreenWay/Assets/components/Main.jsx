@@ -37,7 +37,7 @@ function Main({Data,showIntro,setShowIntro}){
         if(Favorite) return false;
         if (hidePark && item.type === "공원") return false;
         if (hideTrail && item.type === "산책로") return false;
-        if (searchText && !item.name.toLowerCase().includes(searchText.toLowerCase())){ 
+        if (searchText && !item.name.toLowerCase().includes(searchText.toLowerCase().trim())){ 
             return false; 
         }
         return true;
